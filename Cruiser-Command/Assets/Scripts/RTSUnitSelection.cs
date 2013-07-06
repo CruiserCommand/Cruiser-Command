@@ -1,8 +1,8 @@
 /*
  * Name: RTS Unit Selection
- * Author: James 'Sevion' Nhan
+ * Author: James 'Sevion' Nhan and Erik 'Siretu' Ihren
  * Date: 03/07/2013
- * Version: 1.0.0.0
+ * Version: 1.0.0.1
  * Description:
  * 		This is a simple RTS movement script that handles
  * 		unit selection and drag selection.
@@ -12,10 +12,14 @@ using UnityEngine;
 using System.Collections;
 
 public class RTSUnitSelection : MonoBehaviour {
-    public static bool Unselect = false;
 	public GameObject SelectionBox = null;
 	private GameObject SelectionBoxInstance = null;
 	private Vector3 Corner;
+	private RTSUnitSelectionManager UnitManager;
+	
+	void Start(){
+		UnitManager = GameObject.FindWithTag("UnitManager").GetComponent<RTSUnitSelectionManager>();
+	}
 	
 	void OnMouseDown() {
 		// Raycast to the plane
@@ -43,10 +47,15 @@ public class RTSUnitSelection : MonoBehaviour {
 	}
 	
 	void OnMouseUp() {
-        Unselect = (RTSSelectableUnit.HighlightedUnits == 0);
-        RTSSelectableUnit.HighlightedUnits = 0;
-
+		if(!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift)){
+			UnitManager.ClearSelection();
+		}
+		foreach(GameObject obj in UnitManager.GetHighlightedObjects()){
+			UnitManager.SelectUnit(obj);
+		}
+		UnitManager.ClearHighlight();
 		// Destroy the selection box so it doesn't linger on screen
 		GameObject.DestroyObject(SelectionBoxInstance);
 	}
+
 }
