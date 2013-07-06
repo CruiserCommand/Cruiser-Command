@@ -54,7 +54,7 @@ public class RTSUnitOrder : MonoBehaviour {
         if (CurrentOrder == Order.Move) {
 	    Vector3 relativeTargetPosition = TargetPosition;
 	    if(Parent != null){
-		relativeTargetPosition += gameObject.transform.parent.transform.position;
+		relativeTargetPosition += Parent.transform.position;
 	    }
 			
             // This is the new position with respect to time
