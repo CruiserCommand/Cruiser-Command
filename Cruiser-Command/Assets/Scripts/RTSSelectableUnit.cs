@@ -67,8 +67,8 @@ public class RTSSelectableUnit : MonoBehaviour {
 		Debug.Log(SelectionCircleInstance);
         GameObject.DestroyObject(SelectionCircleInstance);
 	}
-	
-	void Update(){
+
+    void Update() {
 		if(!UnitManager.IsSelected(gameObject) && !UnitManager.IsHighlighted(gameObject)){
 			Destroy(SelectionCircleInstance);
 			SelectionCircleInstance = null;

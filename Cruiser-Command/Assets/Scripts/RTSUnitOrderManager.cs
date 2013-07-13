@@ -13,6 +13,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class RTSUnitOrderManager : MonoBehaviour {
+    public LayerMask Sky;
+    public LayerMask Ground;
     private RTSUnitSelectionManager UnitManager;
 
     void Start() {
@@ -23,10 +25,17 @@ public class RTSUnitOrderManager : MonoBehaviour {
     void Update() {
         // On Right Click
         if (Input.GetMouseButtonUp(1)) {
-            // Get the mouse click point
+            // Get the mouse click point in the sky
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit info;
-            Physics.Raycast(ray, out info, Mathf.Infinity, 1);
+            Physics.Raycast(ray, out info, Mathf.Infinity, Sky);
+            Transform theSky = info.transform.gameObject.transform;
+
+            // Raycast from the camera to the ground to find the mouse click point on the ground
+            Physics.Raycast(ray, out info, Mathf.Infinity, Ground);
+
+            // Then use the x,z coordinates of the ground plane and the y of the sky plane
+            info.point += new Vector3(0, theSky.position.y - info.transform.gameObject.transform.position.y, 0);
 
             // For every unit that is selected, issue the order to move to that position
             foreach (GameObject unit in UnitManager.GetSelectedObjects()) {
