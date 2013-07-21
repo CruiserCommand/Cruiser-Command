@@ -25,7 +25,7 @@ public class RTSUnitSelection : MonoBehaviour {
 		// Raycast to the plane
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit info;
-		Physics.Raycast(ray, out info, Mathf.Infinity, 1);
+		Physics.Raycast(ray, out info, Mathf.Infinity, 1 << 8);
 		Corner = info.point;
 		
 		// Instantiate the selection box
@@ -36,7 +36,7 @@ public class RTSUnitSelection : MonoBehaviour {
 		// Raycast to the plane
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit info;
-		Physics.Raycast(ray, out info, Mathf.Infinity, 1);
+		Physics.Raycast(ray, out info, Mathf.Infinity, 1 << 8);
 		
 		// Get resize the box to the area between the initial click and the mouse position
 		Vector3 ResizeVector = info.point - Corner;

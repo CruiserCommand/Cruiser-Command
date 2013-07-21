@@ -1,8 +1,8 @@
 /*
  * Name: RTS Unit Order
- * Author: James 'Sevion' Nhan and Erik 'Siretu' Ihren
- * Date: 06/07/2013
- * Version: 1.0.0.2
+ * Author: James 'Sevion' Nhan and Erik 'Siretu'
+ * Date: 21/07/2013
+ * Version: 1.0.0.3
  * Description:
  *		This is a simple RTS unit order system that
  *		handles orders on mouse clicks.
@@ -12,8 +12,10 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+using Pathfinding;
+
 public class RTSUnitOrder : MonoBehaviour {
-	
+
     // The possible orders
     public enum Order {
         Move,
@@ -35,39 +37,15 @@ public class RTSUnitOrder : MonoBehaviour {
             this.target = target;
         }
     };
-	
-    // Will default to the gameObject's direct parent if not set.
-    public GameObject Parent;
 
     private Order CurrentOrder = Order.Stop;
     private GameObject TargetObject;
     private Vector3 TargetPosition;
-    private const float MOVESPEED = 5.0f;
-	
+	private RTSUnitMovement MovementManager;
+    
 	void Start() {
-	    if(Parent == null && gameObject.transform.parent != null){
-		Parent = gameObject.transform.parent.gameObject;
-	    }
+		MovementManager = GetComponent<RTSUnitMovement>();
 	}
-
-    void Update() {
-        if (CurrentOrder == Order.Move) {
-	    Vector3 relativeTargetPosition = TargetPosition;
-	    if(Parent != null){
-		relativeTargetPosition += Parent.transform.position;
-	    }
-			
-            // This is the new position with respect to time
-            Vector3 NewPosition = (relativeTargetPosition - gameObject.transform.position).normalized * MOVESPEED * Time.deltaTime;
-            // Clamping
-            if (Vector3.Distance(gameObject.transform.position, relativeTargetPosition) > MOVESPEED * Time.deltaTime) {
-                gameObject.transform.position += NewPosition;
-            } else {
-                CurrentOrder = Order.Stop;
-                gameObject.transform.position = relativeTargetPosition;
-            }
-        }
-    }
 
     // Issue an order to the unit
     public void IssueOrder(OrderStruct order) {
@@ -78,12 +56,9 @@ public class RTSUnitOrder : MonoBehaviour {
             TargetObject = gameObject;
         } else {
             CurrentOrder = order.order;
-            // Make sure the target doesn't cause the unit to "sink" in to the ground
-	    order.target += new Vector3(0, gameObject.transform.position.y, 0);
             TargetPosition = order.target;
-            if(Parent != null){
-                TargetPosition -= Parent.transform.position;
-	    }
+			
+			MovementManager.Move(TargetPosition);
         }
     }
 

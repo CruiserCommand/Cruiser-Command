@@ -48,7 +48,7 @@ public class RTSCameraMovement : MonoBehaviour {
 
 		// Check that there is a current camera and then transform it to the new vector
 	    if(camera != null){
-	        camera.transform.Translate(new Vector3(xAxisValue, yAxisValue, zAxisValue));
+	        //camera.transform.Translate(new Vector3(xAxisValue, yAxisValue, zAxisValue));
 	    }
 
 		// Get the mouse's coordinates

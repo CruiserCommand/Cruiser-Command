@@ -26,7 +26,7 @@ public class RTSUnitOrderManager : MonoBehaviour {
             // Get the mouse click point
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit info;
-            Physics.Raycast(ray, out info, Mathf.Infinity, 1);
+            Physics.Raycast(ray, out info, Mathf.Infinity, 1 << 8);
 
             // For every unit that is selected, issue the order to move to that position
             foreach (GameObject unit in UnitManager.GetSelectedObjects()) {
