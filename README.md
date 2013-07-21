@@ -1,4 +1,4 @@
-Cruiser-Command
+Cruiser Command
 ===============
 
-Cruiser Command's Unity Project. Erik's personal branch
+Cruiser Command's Unity Project. Erik's personal branch.
