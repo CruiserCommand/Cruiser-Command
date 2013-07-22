@@ -12,8 +12,10 @@ using UnityEngine;
 using System.Collections;
 
 public class RTSUnitSelection : MonoBehaviour {
+    public string SelectableUnitTag;
     public LayerMask Ground;
     public LayerMask Sky;
+    public LayerMask Units;
 	private Vector3 CornerScreen;
     private RTSUnitSelectionManager UnitManager;
     private Vector3 SelectionBoxRectGroundCorner;
@@ -23,7 +25,6 @@ public class RTSUnitSelection : MonoBehaviour {
     private Rect SelectionBoxRectDraw;
     private GUIStyle SelectionBoxStyle;
     private Texture2D SelectionBoxTexture;
-    private GameObject SelectionBox;
 	
 	void Start(){
         UnitManager = GameObject.FindWithTag("UnitManager").GetComponent<RTSUnitSelectionManager>();
@@ -32,94 +33,7 @@ public class RTSUnitSelection : MonoBehaviour {
         Color transparentGreen = Color.green;
         transparentGreen.a = 0.2f;
         SelectionBoxTexture.SetPixel(1, 1, transparentGreen);
-        SelectionBox = new GameObject();
-        SelectionBox.AddComponent<MeshFilter>();
-        SelectionBox.AddComponent<MeshRenderer>();
-        SelectionBox.AddComponent<MeshCollider>();
-
-        var shader = Shader.Find("Transparent/Diffuse");
-        var mat = new Material(shader);
-        //transparentGreen.a = 0.0f;
-        mat.color = transparentGreen;
-        transparentGreen.a = 0.2f;
-
-        SelectionBox.renderer.material = mat;
 	}
-
-    // Must update so when scrolling the screen while dragging, the original point stays properly
-    // Basically, save Input.mousePosition, and recast on scroll/Update tick (may be costly)
-    void Update() {
-        var meshFilter = SelectionBox.GetComponent<MeshFilter>();
-        var mc = SelectionBox.GetComponent<MeshCollider>();
-        var verticies = new Vector3[8] {
-            SelectionBoxRectGroundCorner2,
-            new Vector3(SelectionBoxRectGroundCorner.x, SelectionBoxRectGroundCorner.y, SelectionBoxRectGroundCorner2.z),
-            new Vector3(SelectionBoxRectGroundCorner2.x, SelectionBoxRectGroundCorner.y, SelectionBoxRectGroundCorner.z),
-            SelectionBoxRectGroundCorner,
-            SelectionBoxRectSkyCorner2,
-            new Vector3(SelectionBoxRectSkyCorner.x, SelectionBoxRectSkyCorner.y, SelectionBoxRectSkyCorner2.z),
-            new Vector3(SelectionBoxRectSkyCorner2.x, SelectionBoxRectSkyCorner.y, SelectionBoxRectSkyCorner.z),
-            SelectionBoxRectSkyCorner
-            /*
-            new Vector3(-5, -5, -5), // 0        7-----5
-            new Vector3(5, -5, -5),  // 1        |3---1|
-            new Vector3(-5, -5, 5),  // 2        ||   ||
-            new Vector3(5, -5, 5),   // 3        |2---0|
-            new Vector3(-5, 0, -5),  // 4        6-----4
-            new Vector3(5, 0, -5),   // 5
-            new Vector3(-5, 0, 5),   // 6
-            new Vector3(5, 0, 5)     // 7
-            */
-        };
-
-        var triangles = new int[36] {
-            1, 2, 0,
-            1, 3, 2,
-            4, 6, 5,
-            6, 7, 5,
-            4, 5, 1,
-            4, 1, 0,
-            6, 2, 3,
-            6, 3, 7,
-            6, 0, 2,
-            6, 4, 0,
-            7, 3, 1,
-            7, 1, 5
-        };
-
-        var uvs = new Vector2[8] {
-            new Vector2(1, 1),
-            new Vector2(1, -1),
-            new Vector2(-1, 1),
-            new Vector2(-1, -1),
-            new Vector2(1, 1),
-            new Vector2(1, -1),
-            new Vector2(-1, 1),
-            new Vector2(-1, -1)
-        };
-
-        Mesh mesh = new Mesh();
-        mesh.vertices = verticies;
-        mesh.uv = uvs;
-        mesh.triangles = triangles;
-        mesh.RecalculateNormals();
-        mesh.RecalculateBounds();
-        mesh.Optimize();
-
-        mc.sharedMesh = null;
-        mc.isTrigger = true;
-        mc.convex = true;
-        mc.enabled = true;
-        meshFilter.sharedMesh = mesh;
-
-        var shader = Shader.Find("Transparent/Diffuse");
-        var mat = new Material(shader);
-        Color transparentGreen = Color.green;
-        transparentGreen.a = 0.2f;
-        mat.color = transparentGreen;
-
-        Graphics.DrawMesh(mc.sharedMesh, Vector3.zero, Quaternion.identity, mat, 0);
-    }
 
     void OnGUI() {
         GUI.BeginGroup(new Rect(0, 0, Screen.width, Screen.height));
@@ -157,24 +71,75 @@ public class RTSUnitSelection : MonoBehaviour {
         Vector3 ResizeVector = Input.mousePosition - CornerScreen;
         SelectionBoxRectDraw.width = ResizeVector.x;
         SelectionBoxRectDraw.height = -ResizeVector.y;
+
+        // Highlight all units within the rect for now
+        // May need to change to a Frustrum later
+        float left, top, right, bottom;
+        // Set the top and left to the maximums to get the corner. Funky rotation causes maximum rather than min x and max z.
+        // If the rotation changes, this will have to be revisited
+        left = Mathf.Max(SelectionBoxRectGroundCorner.x, SelectionBoxRectGroundCorner2.x);
+        top = Mathf.Max(SelectionBoxRectGroundCorner.z, SelectionBoxRectGroundCorner2.z);
+        // Set the bottom and right to the minimums to get the corner. Same as above.
+        right = Mathf.Min(SelectionBoxRectGroundCorner.x, SelectionBoxRectGroundCorner2.x);
+        bottom = Mathf.Min(SelectionBoxRectGroundCorner.z, SelectionBoxRectGroundCorner2.z);
+        // These are the vectors of the corners on the ground
+        a = new Vector3(left, -10, top);
+        b = new Vector3(right, -10, bottom);
+        // Loop through all of the selectable units with the tag SelectableUnit tag
+        GameObject[] selectableUnits = GameObject.FindGameObjectsWithTag(SelectableUnitTag);
+        foreach (GameObject unit in selectableUnits) {
+            // If it's in the rect, highlight it. Else unhighlight it.
+            if (RectContains(unit.transform.position, left, top, right, bottom)) {
+                Debug.Log(unit);
+                UnitManager.HighlightUnit(unit);
+            } else {
+                UnitManager.UnhighlightUnit(unit);
+            }
+        }
+    }
+
+    Vector3 a, b;
+
+    void Update() {
+        Debug.DrawRay(a, Vector3.up * 10, Color.red);
+        Debug.DrawRay(b, Vector3.up * 10, Color.green);
+    }
+
+    bool RectContains(Vector3 position, float left, float top, float right, float bottom) {
+        // Check if the position given is within the rect defined by the floats given
+        return position.x <= left && position.x >= right && position.z >= bottom && position.z <= top;
     }
 
     void OnMouseUp() {
-        //SelectionBoxRectGroundCorner = new Vector3(0, -500, 0);
-        //SelectionBoxRectGroundCorner2 = new Vector3(0, -500, 0);
-        //SelectionBoxRectSkyCorner = new Vector3(0, -500, 0);
-        //SelectionBoxRectSkyCorner2 = new Vector3(0, -500, 0);
+        // Check if we clicked on a unit directly
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit info;
+        if (Physics.Raycast(ray, out info, Mathf.Infinity, Units)) {
+            Debug.Log("Clicked a unit directly");
+            // If so, highlight it
+            UnitManager.HighlightUnit(info.transform.gameObject);
+        }
 
+        // Reset the selection box
+        SelectionBoxRectGroundCorner = new Vector3(0, -500, 0);
+        SelectionBoxRectGroundCorner2 = new Vector3(0, -500, 0);
+        SelectionBoxRectSkyCorner = new Vector3(0, -500, 0);
+        SelectionBoxRectSkyCorner2 = new Vector3(0, -500, 0);
+
+        // And the drawn box
         SelectionBoxRectDraw.width = 0;
         SelectionBoxRectDraw.height = 0;
         SelectionBoxRectDraw.x = -1;
         SelectionBoxRectDraw.y = -1;
+        // Clear the selection if we're not holding shift to add
 		if(!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift)){
 			UnitManager.ClearSelection();
 		}
+        // Select all objects highlighted
 		foreach(GameObject obj in UnitManager.GetHighlightedObjects()){
 			UnitManager.SelectUnit(obj);
 		}
+        // Unhighlight units because they're already selected
 		UnitManager.ClearHighlight();
 	}
 }

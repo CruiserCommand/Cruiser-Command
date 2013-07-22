@@ -31,7 +31,7 @@ public class RTSUnitOrderManager : MonoBehaviour {
             Physics.Raycast(ray, out info, Mathf.Infinity, Sky);
             Transform theSky = info.transform.gameObject.transform;
 
-            // Raycast from the camera to the ground to find the mouse click point on the ground
+            // Raycast from the Camera.main to the ground to find the mouse click point on the ground
             Physics.Raycast(ray, out info, Mathf.Infinity, Ground);
 
             // Then use the x,z coordinates of the ground plane and the y of the sky plane

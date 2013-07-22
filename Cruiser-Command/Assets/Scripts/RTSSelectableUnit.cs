@@ -67,8 +67,18 @@ public class RTSSelectableUnit : MonoBehaviour {
 		Debug.Log(SelectionCircleInstance);
         GameObject.DestroyObject(SelectionCircleInstance);
 	}
-
-    void Update() {
+	
+	void Update(){
+        // Here is the section of code I put back in
+        if (SelectionCircleInstance == null && UnitManager.IsHighlighted(gameObject)) {
+            Debug.Log("Created circle");
+            SelectionCircleInstance = GameObject.Instantiate(SelectionCircle, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - gameObject.transform.localScale.y / 2 + 0.01f, gameObject.transform.position.z), Quaternion.identity) as GameObject;
+            // Parent it to the unit so it follows it
+            SelectionCircleInstance.transform.parent = gameObject.transform;
+            Debug.Log(SelectionCircleInstance.transform.position);
+            Debug.Log(gameObject.transform.position);
+        }
+        // Here is the section of code I put back in
 		if(!UnitManager.IsSelected(gameObject) && !UnitManager.IsHighlighted(gameObject)){
 			Destroy(SelectionCircleInstance);
 			SelectionCircleInstance = null;
