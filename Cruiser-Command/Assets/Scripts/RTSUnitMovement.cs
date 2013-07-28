@@ -53,9 +53,8 @@ public class RTSUnitMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (OrderManager.GetCurrentOrder() == RTSUnitOrder.Order.Move) {
-			
 			if (path == null) {
-            	//We have no path to move after yet
+                //We have no path to move after yet
             	return;
         	}
 			
@@ -100,16 +99,19 @@ public class RTSUnitMovement : MonoBehaviour {
 	public void OnPathComplete(Path p){
         if (!p.error) {
             path = p;
-            //Reset the waypoint counter
+            // Reset the waypoint counter
             currentWaypoint = 0;
+            // Reset the order
+            RTSUnitOrder.OrderStruct order = new RTSUnitOrder.OrderStruct(RTSUnitOrder.Order.Stop, gameObject.transform.localPosition);
+            gameObject.SendMessage("IssueOrder", order);
         }		
 	}	
 	
 	public void Move(Vector3 pos){
-		seeker.StartPath (transform.position,pos,OnPathComplete);
+        seeker.StartPath(transform.position, pos, OnPathComplete);
         if(Parent != null){
 			OriginalParentPos = Parent.transform.position;
 			OriginalParentRot = Parent.transform.rotation;
-	    }		
+        }
 	}
 }

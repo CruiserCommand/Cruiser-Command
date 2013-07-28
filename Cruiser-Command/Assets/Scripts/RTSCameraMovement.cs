@@ -15,7 +15,7 @@ using System.Collections;
 
 public class RTSCameraMovement : MonoBehaviour {
 	public const int SCROLLDISTANCE = 5;
-	public const float SCROLLSPEED = 50.0f;
+	public const float SCROLLSPEED = 30.0f;
     public const float ZOOMSPEED = 5.0f;
 	public const float ROTSPEED = 5.0f;
 	public const float MAXZOOM = 29.0f;
@@ -37,12 +37,27 @@ public class RTSCameraMovement : MonoBehaviour {
 		// The Camera.main's X rotation in radians
 		float CameraAngleFromPerpendicular = Camera.main.transform.eulerAngles.x * Mathf.PI / 180.0f;
 
+        int left = 0, right = 0, up = 0, down = 0;
+
+        if (Input.GetKey(KeyCode.LeftArrow)) {
+            left = -1;
+        }
+        if (Input.GetKey(KeyCode.RightArrow)) {
+            right = 1;
+        }
+        if (Input.GetKey(KeyCode.UpArrow)) {
+            up = 1;
+        }
+        if (Input.GetKey(KeyCode.DownArrow)) {
+            down = -1;
+        }
+
 		// Get the input data in the respective axes
-		float xAxisValue = Input.GetAxis("Horizontal") * SCROLLSPEED * Time.deltaTime;
+		float xAxisValue = (left + right) * SCROLLSPEED * Time.deltaTime;
 		// The Y and Z axes need to be adjusted if there's any X rotation in the Camera.main
 		// Y corresponds to Sin and Z corresponds to Cos
-	    float yAxisValue = Input.GetAxis("Vertical") * SCROLLSPEED * Mathf.Sin(CameraAngleFromPerpendicular) * Time.deltaTime;
-        float zAxisValue = Input.GetAxis("Vertical") * SCROLLSPEED * Mathf.Cos(CameraAngleFromPerpendicular) * Time.deltaTime;
+	    float yAxisValue = (up + down) * SCROLLSPEED * Mathf.Sin(CameraAngleFromPerpendicular) * Time.deltaTime;
+        float zAxisValue = (up + down) * SCROLLSPEED * Mathf.Cos(CameraAngleFromPerpendicular) * Time.deltaTime;
 
 		// Check that there is a current Camera.main and then transform it to the new vector
 	    if(Camera.main != null){

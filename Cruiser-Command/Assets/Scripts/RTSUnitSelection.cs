@@ -2,7 +2,7 @@
  * Name: RTS Unit Selection
  * Author: James 'Sevion' Nhan and Erik 'Siretu' Ihren
  * Date: 03/07/2013
- * Version: 1.0.0.1
+ * Version: 1.1.0.0
  * Description:
  * 		This is a simple RTS movement script that handles
  * 		unit selection and drag selection.
@@ -115,7 +115,7 @@ public class RTSUnitSelection : MonoBehaviour {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit info;
         if (Physics.Raycast(ray, out info, Mathf.Infinity, Units)) {
-            Debug.Log("Clicked a unit directly");
+            Debug.Log("Clicked " + info.transform.gameObject + " directly");
             // If so, highlight it
             UnitManager.HighlightUnit(info.transform.gameObject);
         }
