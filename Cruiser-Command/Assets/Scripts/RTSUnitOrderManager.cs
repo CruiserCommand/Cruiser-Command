@@ -33,7 +33,12 @@ public class RTSUnitOrderManager : MonoBehaviour {
 
             // For every unit that is selected, issue the order to move to that position
             foreach (GameObject unit in UnitManager.GetSelectedObjects()) {
-                RTSUnitOrder.OrderStruct order = new RTSUnitOrder.OrderStruct(RTSUnitOrder.Order.Move, info.point);
+                RTSUnitOrder.OrderStruct order = new RTSUnitOrder.OrderStruct(RTSUnitOrder.Order.Stop, new Vector3(0, 0, 0));
+                if (unit.GetComponent<RTSUnitMovement>() != null) {
+                    order = new RTSUnitOrder.OrderStruct(RTSUnitOrder.Order.Move, info.point);
+                } else if (unit.GetComponent<RTSShipMovement>() != null) {
+                    order = new RTSUnitOrder.OrderStruct(RTSUnitOrder.Order.Face, info.point);
+                }
                 unit.SendMessage("IssueOrder", order);
             }
         }

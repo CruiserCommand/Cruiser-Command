@@ -20,6 +20,7 @@ public class RTSUnitOrder : MonoBehaviour {
     public enum Order {
         Move,
         Stop,
+        Face,
         // Still need to implement:
         HoldPosition,
         Patrol,
@@ -54,7 +55,11 @@ public class RTSUnitOrder : MonoBehaviour {
             CurrentOrder = order.order;
             TargetPosition = gameObject.transform.position;
             TargetObject = gameObject;
+        } else if (order.order == Order.Face) {
+            RTSShipMovement obj = gameObject.GetComponent<RTSShipMovement>();
+            gameObject.transform.LookAt(order.target + new Vector3(0, gameObject.transform.position.y - order.target.y, 0));
         } else {
+            gameObject.transform.LookAt(order.target + new Vector3(0, gameObject.transform.position.y - order.target.y, 0));
             CurrentOrder = order.order;
             TargetPosition = order.target;
 			
