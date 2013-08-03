@@ -30,7 +30,6 @@ public class RTSUnitOrderManager : MonoBehaviour {
             Physics.Raycast(ray, out info, Mathf.Infinity, Ground);
 
             Debug.Log(info.point);
-
             // For every unit that is selected, issue the order to move to that position
             foreach (GameObject unit in UnitManager.GetSelectedObjects()) {
                 RTSUnitOrder.OrderStruct order = new RTSUnitOrder.OrderStruct(RTSUnitOrder.Order.Stop, new Vector3(0, 0, 0));

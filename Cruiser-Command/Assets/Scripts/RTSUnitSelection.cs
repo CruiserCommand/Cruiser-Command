@@ -46,6 +46,7 @@ public class RTSUnitSelection : MonoBehaviour {
     }
 	
 	void OnMouseDown() {
+
 		// Raycast to the planes
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit info;

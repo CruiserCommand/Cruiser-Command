@@ -1,4 +1,4 @@
-Cruiser-Command
+Cruiser Command
 ===============
 
-Cruiser Command's Unity Project
+Cruiser Command's Unity Project.
