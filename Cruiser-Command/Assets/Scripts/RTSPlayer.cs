@@ -4,8 +4,7 @@
  * Date: 17/07/2013
  * Version: 1.0.1.0
  * Description:
- * 		This is a simple RTS movement script that handles
- * 		players.
+ * 		This is a simple script thar handles players
  */
 
 using UnityEngine;
@@ -44,7 +43,7 @@ public class RTSPlayer : MonoBehaviour {
         return RTSResources.Resources[Number, (int)Type];
     }
 
-    public RTSPlayer GetPlayer(Player number) {
+    public static RTSPlayer GetPlayer(Player number) {
         foreach (RTSPlayer player in Players) {
             if ((int)number == player.Number) {
                 return player;
