@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * Name: RTS Unit Movement
  * Author: James 'Sevion' Nhan, Erik 'Siretu', and Aron Granberg
