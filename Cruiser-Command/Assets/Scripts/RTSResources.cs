@@ -23,37 +23,37 @@ public class RTSResources : MonoBehaviour {
     public UILabel Red;
     public UILabel Green;
 
-    public void AddResource(Player Player, Resource Resource, int Amount) {
-        Resources[(int)Player, (int)Resource] += Amount;
+    public void AddResource(PlayerNumber PlayerNumber, Resource Resource, int Amount) {
+        Resources[(int)PlayerNumber, (int)Resource] += Amount;
     }
 
-    public void SubtractResource(Player Player, Resource Resource, int Amount) {
-        Resources[(int)Player, (int)Resource] -= Amount;
+    public void SubtractResource(PlayerNumber PlayerNumber, Resource Resource, int Amount) {
+        Resources[(int)PlayerNumber, (int)Resource] -= Amount;
     }
 
-    public void SetResource(Player Player, Resource Resource, int Amount) {
-        Resources[(int)Player, (int)Resource] = Amount;
+    public void SetResource(PlayerNumber PlayerNumber, Resource Resource, int Amount) {
+        Resources[(int)PlayerNumber, (int)Resource] = Amount;
     }
 
-    public int GetResource(Player Player, Resource Resource) {
-        return Resources[(int)Player, (int)Resource];
+    public int GetResource(PlayerNumber PlayerNumber, Resource Resource) {
+        return Resources[(int)PlayerNumber, (int)Resource];
     }
 
     void Start() {
-        Resources[(int)Player.One, (int)Resource.Yellow] = 0;
-        Resources[(int)Player.One, (int)Resource.Blue] = 0;
-        Resources[(int)Player.One, (int)Resource.Red] = 0;
-        Resources[(int)Player.One, (int)Resource.Green] = 0;
-        Resources[(int)Player.Two, (int)Resource.Yellow] = 0;
-        Resources[(int)Player.Two, (int)Resource.Blue] = 0;
-        Resources[(int)Player.Two, (int)Resource.Red] = 0;
-        Resources[(int)Player.Two, (int)Resource.Green] = 0;
+        Resources[(int)PlayerNumber.One, (int)Resource.Yellow] = 0;
+        Resources[(int)PlayerNumber.One, (int)Resource.Blue] = 0;
+        Resources[(int)PlayerNumber.One, (int)Resource.Red] = 0;
+        Resources[(int)PlayerNumber.One, (int)Resource.Green] = 0;
+        Resources[(int)PlayerNumber.Two, (int)Resource.Yellow] = 0;
+        Resources[(int)PlayerNumber.Two, (int)Resource.Blue] = 0;
+        Resources[(int)PlayerNumber.Two, (int)Resource.Red] = 0;
+        Resources[(int)PlayerNumber.Two, (int)Resource.Green] = 0;
     }
 
     void Update() {
-        Yellow.text = Resources[(int)Player.One, (int)Resource.Yellow].ToString();
-        Blue.text = Resources[(int)Player.One, (int)Resource.Blue].ToString();
-        Red.text = Resources[(int)Player.One, (int)Resource.Red].ToString();
-        Green.text = Resources[(int)Player.One, (int)Resource.Green].ToString();
+        Yellow.text = Resources[(int)PlayerNumber.One, (int)Resource.Yellow].ToString();
+        Blue.text = Resources[(int)PlayerNumber.One, (int)Resource.Blue].ToString();
+        Red.text = Resources[(int)PlayerNumber.One, (int)Resource.Red].ToString();
+        Green.text = Resources[(int)PlayerNumber.One, (int)Resource.Green].ToString();
     }
 }

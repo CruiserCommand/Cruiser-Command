@@ -1,5 +1,5 @@
 /*
- * Name: RTS Player
+ * Name: RTS PlayerNumber
  * Author: James 'Sevion' Nhan and Erik 'Siretu' Ihren
  * Date: 17/07/2013
  * Version: 1.0.1.0
@@ -11,7 +11,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum Player {
+public enum PlayerNumber {
     One, Two, Three, Four, Five, Six, Seven, Eight
 };
 
@@ -24,7 +24,7 @@ public class RTSPlayer : MonoBehaviour {
         // In the multiplayer we will have to update the list and player numbers upon joining a game
         Number = NumPlayers++;
         Players.Add(this);
-        Debug.Log("Added Player " + NumPlayers);
+        Debug.Log("Added PlayerNumber " + NumPlayers);
     }
 
     public void AddResource(int Amount, Resource Type) {
@@ -43,7 +43,7 @@ public class RTSPlayer : MonoBehaviour {
         return RTSResources.Resources[Number, (int)Type];
     }
 
-    public static RTSPlayer GetPlayer(Player number) {
+    public static RTSPlayer GetPlayer(PlayerNumber number) {
         foreach (RTSPlayer player in Players) {
             if ((int)number == player.Number) {
                 return player;
