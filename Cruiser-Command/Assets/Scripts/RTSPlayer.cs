@@ -1,5 +1,5 @@
 /*
- * Name: RTS PlayerNumber
+ * Name: RTS Player
  * Author: James 'Sevion' Nhan and Erik 'Siretu' Ihren
  * Date: 17/07/2013
  * Version: 1.0.1.0
@@ -53,7 +53,7 @@ public class RTSPlayer : MonoBehaviour {
         return null;
     }
 
-    public RTSPlayer GetPlayer(int number) {
+    public static RTSPlayer GetPlayer(int number) {
         foreach (RTSPlayer player in Players) {
             if (number == player.Number) {
                 return player;
