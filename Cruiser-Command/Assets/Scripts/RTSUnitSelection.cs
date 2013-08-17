@@ -91,7 +91,6 @@ public class RTSUnitSelection : MonoBehaviour {
         foreach (GameObject unit in selectableUnits) {
             // If it's in the rect, highlight it. Else unhighlight it.
             if (RectContains(unit.transform.position, left, top, right, bottom)) {
-                Debug.Log(unit);
                 UnitManager.HighlightUnit(unit);
             } else {
                 UnitManager.UnhighlightUnit(unit);

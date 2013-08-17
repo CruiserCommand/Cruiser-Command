@@ -62,7 +62,12 @@ public class RTSUnitOrder : MonoBehaviour {
             gameObject.transform.LookAt(order.target + new Vector3(0, gameObject.transform.position.y - order.target.y, 0));
             CurrentOrder = order.order;
             TargetPosition = order.target;
-			
+            GameObject console = gameObject.GetComponent<UnitStats>().console;
+            if (console != null) {
+                console.GetComponent<ConsoleControls>().DisconnectConsole();
+                Debug.Log("Disconnected");
+            }
+
 			MovementManager.Move(TargetPosition);
         }
     }

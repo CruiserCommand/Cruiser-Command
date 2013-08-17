@@ -34,11 +34,17 @@ public class RTSUnitOrderManager : MonoBehaviour {
             foreach (GameObject unit in UnitManager.GetSelectedObjects()) {
                 RTSUnitOrder.OrderStruct order = new RTSUnitOrder.OrderStruct(RTSUnitOrder.Order.Stop, new Vector3(0, 0, 0));
                 if (unit.GetComponent<RTSUnitMovement>() != null) {
+                    Debug.Log("In order");
                     order = new RTSUnitOrder.OrderStruct(RTSUnitOrder.Order.Move, info.point);
                 } else if (unit.GetComponent<RTSShipMovement>() != null) {
+                    Debug.Log("In order");
                     order = new RTSUnitOrder.OrderStruct(RTSUnitOrder.Order.Face, info.point);
                 }
-                unit.SendMessage("IssueOrder", order);
+                Debug.Log(order);
+                Debug.Log(unit);
+                RTSUnitOrder o = unit.GetComponent<RTSUnitOrder>();
+                o.IssueOrder(order);
+                //unit.SendMessage("IssueOrder", order);
             }
         }
     }
