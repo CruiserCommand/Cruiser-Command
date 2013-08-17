@@ -7,6 +7,9 @@ public class ConsoleControls : MonoBehaviour {
     private GameObject screen;
 
     private GameObject occupier = null;
+    private GameObject lastOccupier = null;
+
+    private const double CIRCLE_RADIUS = 2;
 
 	// Use this for initialization
 	void Start () {
@@ -19,15 +22,18 @@ public class ConsoleControls : MonoBehaviour {
 	void Update () {
         if (occupier == null) {
             foreach (GameObject obj in Units.instance.playerUnits) {
-                if (occupier == null && Vector3.Distance(obj.transform.position, circle.transform.position) <= 2) {
+                if (obj != null && occupier == null && obj != lastOccupier && Vector3.Distance(obj.transform.position, circle.transform.position) <= CIRCLE_RADIUS) {
                     EnterConsole(obj);
                     break;
                 }
             }
+            if (lastOccupier != null && Vector3.Distance(lastOccupier.transform.position, circle.transform.position) > CIRCLE_RADIUS) {
+                lastOccupier = null;
+            }
         }
 	}
 
-    void EnterConsole(GameObject obj) {
+    public void EnterConsole(GameObject obj) {
         if (obj != null) {
             Debug.Log("Entered circle");
             occupier = obj;
@@ -46,13 +52,16 @@ public class ConsoleControls : MonoBehaviour {
             stats.console = gameObject;
 
             obj.transform.LookAt(screen.transform.position);
+
+            gameObject.transform.parent.SendMessage("EnterConsole", obj);
         }
     }
 
-    void DisconnectConsole() {
+    public void DisconnectConsole() {
         GameObject obj = occupier;
         if (obj != null) {
             occupier = null;
+            lastOccupier = obj;
 
             // Clear unit's console
             UnitStats stats = obj.GetComponent<UnitStats>();
