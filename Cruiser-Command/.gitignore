@@ -5,6 +5,7 @@ Temp
 *.pidb
 *.unityproj
 *.sln
+*.suo
 *.userprefs
 AstarPathfindingProject
 TNet

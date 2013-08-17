@@ -4,7 +4,7 @@
  * Date: 17/07/2013
  * Version: 1.0.1.0
  * Description:
- * 		This is a simple script thar handles players
+ * 		This is a simple script that handles players
  */
 
 using UnityEngine;
