@@ -21,7 +21,7 @@ public class ConsoleControls : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (occupier == null) {
-            foreach (GameObject obj in Units.instance.playerUnits) {
+            foreach (GameObject obj in Unit.GetAllUnitsObjects()) {
                 if (obj != null && occupier == null && obj != lastOccupier && Vector3.Distance(obj.transform.position, circle.transform.position) <= CIRCLE_RADIUS) {
                     EnterConsole(obj);
                     break;
@@ -48,7 +48,7 @@ public class ConsoleControls : MonoBehaviour {
             movement.path = null;
 
             // Set unit's console
-            UnitStats stats = obj.GetComponent<UnitStats>();
+            Unit stats = obj.GetComponent<Unit>();
             stats.console = gameObject;
 
             obj.transform.LookAt(screen.transform.position);
@@ -64,7 +64,7 @@ public class ConsoleControls : MonoBehaviour {
             lastOccupier = obj;
 
             // Clear unit's console
-            UnitStats stats = obj.GetComponent<UnitStats>();
+            Unit stats = obj.GetComponent<Unit>();
             stats.console = null;
         }
     }
