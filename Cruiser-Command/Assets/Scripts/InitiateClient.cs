@@ -14,7 +14,7 @@ public class InitiateClient : MonoBehaviour {
         // Connect to the remote server
         //TNManager.Connect(serverAddress, serverPort);
 
-        TNManager.Connect("127.0.0.1:5668");
+        TNManager.Connect("127.0.0.1:"+serverPort);
 	}
 	
 	// Update is called once per frame
@@ -23,6 +23,9 @@ public class InitiateClient : MonoBehaviour {
 	}
 
     void OnNetworkConnect(bool success, string message) {
-        Debug.Log("Connected!");
+        Debug.Log("Connected!: " + success+ " | " + message);
+        Debug.Log(TNManager.isConnected);
+        Debug.Log(TNManager.isInChannel);
+
     }
 }

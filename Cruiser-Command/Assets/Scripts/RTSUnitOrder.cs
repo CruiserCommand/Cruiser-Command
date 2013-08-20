@@ -62,6 +62,8 @@ public class RTSUnitOrder : MonoBehaviour {
             gameObject.transform.LookAt(order.target + new Vector3(0, gameObject.transform.position.y - order.target.y, 0));
             CurrentOrder = order.order;
             TargetPosition = order.target;
+            TNObject tno = GetComponent<TNObject>();
+            tno.Send("a",TNet.Target
 			
 			MovementManager.Move(TargetPosition);
         }
