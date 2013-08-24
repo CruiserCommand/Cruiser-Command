@@ -5,27 +5,21 @@ public class InitiateClient : MonoBehaviour {
     public string serverAddress = "127.0.0.1";
     public int serverPort = 5666;
 
-	// Use this for initialization
-	void Start () {
+    void OnGUI(){
+        if (uLink.Network.peerType == uLink.NetworkPeerType.Disconnected) {
+            uLink.Network.isAuthoritativeServer = true;
+            uLink.Network.Connect(serverAddress, serverPort);
+        } else {
+            string ipadress = uLink.Network.player.ipAddress;
+            string port = uLink.Network.player.port.ToString();
+            GUI.Label(new Rect(140, 20, 250, 40), "IP Address: " + ipadress + ":" + port);
+            GUI.Label(new Rect(140, 60, 350, 40), "Running as a client");
+        }
 
-        // Make it possible to use UDP using a random port
-        //TNManager.StartUDP(Random.Range(10000, 50000));
+    }
 
-        // Connect to the remote server
-        //TNManager.Connect(serverAddress, serverPort);
-
-        TNManager.Connect("127.0.0.1:"+serverPort);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-    void OnNetworkConnect(bool success, string message) {
-        Debug.Log("Connected!: " + success+ " | " + message);
-        Debug.Log(TNManager.isConnected);
-        Debug.Log(TNManager.isInChannel);
-
+    void uLink_OnConnectedToServer() {
+        Debug.Log("Now connected to server");
+        Debug.Log("Local port = " + uLink.Network.player.port.ToString());
     }
 }
