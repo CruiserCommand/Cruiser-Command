@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 using Pathfinding;
 
-public class RTSUnitOrder : MonoBehaviour {
+public class RTSUnitOrder : uLink.MonoBehaviour {
 
     // The possible orders
     public enum Order {
@@ -50,26 +50,44 @@ public class RTSUnitOrder : MonoBehaviour {
 
     // Issue an order to the unit
     public void IssueOrder(OrderStruct order) {
-        // If it's either of the non-motion orders, there shouldn't be a target
-        if (order.order == Order.Stop || order.order == Order.HoldPosition) {
-            CurrentOrder = order.order;
-            TargetPosition = gameObject.transform.position;
-            TargetObject = gameObject;
-        } else if (order.order == Order.Face) {
-            RTSShipMovement obj = gameObject.GetComponent<RTSShipMovement>();
-            gameObject.transform.LookAt(order.target + new Vector3(0, gameObject.transform.position.y - order.target.y, 0));
-        } else {
-            gameObject.transform.LookAt(order.target + new Vector3(0, gameObject.transform.position.y - order.target.y, 0));
-            CurrentOrder = order.order;
-            TargetPosition = order.target;
-            GameObject console = gameObject.GetComponent<UnitStats>().console;
-            if (console != null) {
-                console.GetComponent<ConsoleControls>().DisconnectConsole();
-                Debug.Log("Disconnected");
-            }
+        if (uLink.NetworkView.Get(gameObject).isOwner) {
+            // If it's either of the non-motion orders, there shouldn't be a target
+            if (order.order == Order.Stop || order.order == Order.HoldPosition) {
+                CurrentOrder = order.order;
+                TargetPosition = gameObject.transform.position;
+                TargetObject = gameObject;
+            } else if (order.order == Order.Face) {
+                RTSShipMovement obj = gameObject.GetComponent<RTSShipMovement>();
+                gameObject.transform.LookAt(order.target + new Vector3(0, gameObject.transform.position.y - order.target.y, 0));
+            } else {
+                gameObject.transform.LookAt(order.target + new Vector3(0, gameObject.transform.position.y - order.target.y, 0));
+                CurrentOrder = order.order;
+                TargetPosition = order.target;
+                GameObject console = gameObject.GetComponent<UnitStats>().console;
+                if (console != null) {
+                    console.GetComponent<ConsoleControls>().DisconnectConsole();
+                    Debug.Log("Disconnected");
+                }
+                networkView.RPC("S_OrderMove", uLink.RPCMode.Server, TargetPosition);
+                Debug.Log(uLink.NetworkView.Get(gameObject).isOwner);
 
-			MovementManager.Move(TargetPosition);
+                //MovementManager.Move(TargetPosition);
+            }
         }
+    }
+
+    [RPC]
+    public void S_OrderMove(Vector3 pos, uLink.NetworkMessageInfo info) {
+        if (info.sender == uLink.NetworkView.Get(gameObject).owner) {
+            Debug.Log("RPC: Ordered to move");
+            MovementManager.Move(pos);
+            networkView.RPC("C_OrderMove", uLink.RPCMode.Others, pos);
+        }
+    }
+
+    [RPC]
+    public void C_OrderMove(Vector3 pos) {
+        MovementManager.Move(pos);
     }
 
     public Order GetCurrentOrder() {
