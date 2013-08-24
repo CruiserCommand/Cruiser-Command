@@ -63,7 +63,7 @@ public class RTSUnitOrder : uLink.MonoBehaviour {
                 gameObject.transform.LookAt(order.target + new Vector3(0, gameObject.transform.position.y - order.target.y, 0));
                 CurrentOrder = order.order;
                 TargetPosition = order.target;
-                GameObject console = gameObject.GetComponent<UnitStats>().console;
+                GameObject console = gameObject.GetComponent<Unit>().console;
                 if (console != null) {
                     console.GetComponent<ConsoleControls>().DisconnectConsole();
                     Debug.Log("Disconnected");
