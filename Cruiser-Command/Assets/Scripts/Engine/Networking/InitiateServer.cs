@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using CC.eLog;
 
 public class InitiateServer : MonoBehaviour {
     public string serverAddress = "127.0.0.1";
@@ -25,7 +26,7 @@ public class InitiateServer : MonoBehaviour {
     }
 
     void uLink_OnServerInitialized() {
-        Log.Fatal("Server successfully started");
+        Log.Fatal("general", "Server successfully started");
     }
 
     void uLink_OnPlayerDisconnected(uLink.NetworkPlayer player) {
