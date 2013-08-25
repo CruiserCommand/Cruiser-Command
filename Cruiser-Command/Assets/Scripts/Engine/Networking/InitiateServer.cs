@@ -25,7 +25,7 @@ public class InitiateServer : MonoBehaviour {
     }
 
     void uLink_OnServerInitialized() {
-        Debug.Log("Server successfully started");
+        Log.Fatal("Server successfully started");
     }
 
     void uLink_OnPlayerDisconnected(uLink.NetworkPlayer player) {
@@ -34,13 +34,11 @@ public class InitiateServer : MonoBehaviour {
     }
 
     void uLink_OnFailedToConnect(uLink.NetworkConnectionError error) {
-        Debug.LogError("uLink got error: " + error);
+        Log.Error("network", "uLink got error: " + error);
     }
 
     void uLink_OnPlayerConnected(uLink.NetworkPlayer player) {
-        Debug.Log("Player connected from " + player.ipAddress + ":" + player.port);
-        //uLink.Network.Instantiate(prefab, new Vector3(-9f, -9f, 9f), Quaternion.identity,0);
+        Log.Info("network", "Player connected from " + player.ipAddress + ":" + player.port);
         uLink.Network.Instantiate(player, proxyPrefab, ownerPrefab, serverPrefab    , new Vector3(-9f, 1f, 9f), Quaternion.identity, 0);
-        
     }
 }

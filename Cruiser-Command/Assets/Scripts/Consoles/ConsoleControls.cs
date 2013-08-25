@@ -15,7 +15,6 @@ public class ConsoleControls : MonoBehaviour {
 	void Start () {
         circle = gameObject.transform.Find("Circle").gameObject;
         screen = gameObject.transform.Find("Console Screen").gameObject;
-        Debug.Log(circle);
 	}
 
 	// Update is called once per frame
@@ -35,7 +34,6 @@ public class ConsoleControls : MonoBehaviour {
 
     public void EnterConsole(GameObject obj) {
         if (obj != null) {
-            Debug.Log("Entered circle");
             occupier = obj;
 
             // Snap to circle

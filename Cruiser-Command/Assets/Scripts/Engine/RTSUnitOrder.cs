@@ -66,12 +66,8 @@ public class RTSUnitOrder : uLink.MonoBehaviour {
                 GameObject console = gameObject.GetComponent<Unit>().console;
                 if (console != null) {
                     console.GetComponent<ConsoleControls>().DisconnectConsole();
-                    Debug.Log("Disconnected");
                 }
                 networkView.RPC("S_OrderMove", uLink.RPCMode.Server, TargetPosition);
-                Debug.Log(uLink.NetworkView.Get(gameObject).isOwner);
-
-                //MovementManager.Move(TargetPosition);
             }
         }
     }
@@ -79,7 +75,6 @@ public class RTSUnitOrder : uLink.MonoBehaviour {
     [RPC]
     public void S_OrderMove(Vector3 pos, uLink.NetworkMessageInfo info) {
         if (info.sender == uLink.NetworkView.Get(gameObject).owner) {
-            Debug.Log("RPC: Ordered to move");
             MovementManager.Move(pos);
             networkView.RPC("C_OrderMove", uLink.RPCMode.Others, pos);
         }

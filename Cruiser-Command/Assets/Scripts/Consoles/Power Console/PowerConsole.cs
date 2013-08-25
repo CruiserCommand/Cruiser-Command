@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using CC.eLog;
 
 public class PowerConsole : MonoBehaviour {
 
@@ -14,6 +15,6 @@ public class PowerConsole : MonoBehaviour {
 	}
 
     void EnterConsole(GameObject obj) {
-        Debug.Log("Entered Power console");
+        Log.Trace("console", "Entered power console circle");
     }
 }

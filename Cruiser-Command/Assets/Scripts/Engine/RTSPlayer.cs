@@ -24,7 +24,6 @@ public class RTSPlayer : MonoBehaviour {
         // In the multiplayer we will have to update the list and player numbers upon joining a game
         Number = NumPlayers++;
         Players.Add(this);
-        Debug.Log("Added PlayerNumber " + NumPlayers);
     }
 
     public void AddResource(int Amount, Resource Type) {

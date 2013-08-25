@@ -56,7 +56,6 @@ public class RTSUnitMovement : MonoBehaviour {
     void Update() {
         //This needs fixing, GetCurrentOrder does not stay at the same order for consecutive frames
         //if (OrderManager.GetCurrentOrder() == RTSUnitOrder.Order.Move) {
-        //Debug.Log(currentWaypoint);
 
         if (path == null) {
             //We have no path to move after yet

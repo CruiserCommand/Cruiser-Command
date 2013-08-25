@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using CC.eLog;
 
 public class InitiateClient : MonoBehaviour {
     public string serverAddress = "178.174.215.92";
@@ -20,7 +21,7 @@ public class InitiateClient : MonoBehaviour {
     }
 
     void uLink_OnConnectedToServer() {
-        Debug.Log("Now connected to server");
-        Debug.Log("Local port = " + uLink.Network.player.port.ToString());
+        Log.Info("network", "Now connected to server");
+        Log.Info("network", "Local port = " + uLink.Network.player.port.ToString());
     }
 }
