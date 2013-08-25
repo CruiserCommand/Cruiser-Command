@@ -2,12 +2,13 @@
 using System.Collections;
 
 public class InitiateClient : MonoBehaviour {
-    public string serverAddress = "127.0.0.1";
+    public string serverAddress = "178.174.215.92";
     public int serverPort = 5666;
 
     void OnGUI(){
         if (uLink.Network.peerType == uLink.NetworkPeerType.Disconnected) {
             uLink.Network.isAuthoritativeServer = true;
+            uLink.Network.useNat = true;
             uLink.Network.Connect(serverAddress, serverPort);
         } else {
             string ipadress = uLink.Network.player.ipAddress;

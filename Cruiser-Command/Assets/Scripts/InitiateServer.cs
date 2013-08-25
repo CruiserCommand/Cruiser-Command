@@ -11,9 +11,11 @@ public class InitiateServer : MonoBehaviour {
     void OnGUI() {
         if (uLink.Network.peerType == uLink.NetworkPeerType.Disconnected) {
             uLink.Network.isAuthoritativeServer = true;
+            uLink.Network.useNat = true;
             uLink.Network.InitializeServer(32, serverPort);
         } else {
             string ipadress = uLink.Network.player.ipAddress;
+            
             string port = uLink.Network.player.port.ToString();
             GUI.Label(new Rect(140, 20, 250, 40), "IP Address: " + ipadress + ":" + port);
             GUI.Label(new Rect(140, 60, 350, 40), "Running as a server");
@@ -37,6 +39,6 @@ public class InitiateServer : MonoBehaviour {
     void uLink_OnPlayerConnected(uLink.NetworkPlayer player) {
         Debug.Log("Player connected from " + player.ipAddress + ":" + player.port);
         //uLink.Network.Instantiate(prefab, new Vector3(-9f, -9f, 9f), Quaternion.identity,0);
-        uLink.Network.Instantiate(player, proxyPrefab, ownerPrefab, serverPrefab    , new Vector3(-9f, -9f, 9f), Quaternion.identity, 0);
+        uLink.Network.Instantiate(player, proxyPrefab, ownerPrefab, serverPrefab    , new Vector3(-9f, 1f, 9f), Quaternion.identity, 0);
     }
 }
