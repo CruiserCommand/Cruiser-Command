@@ -13,6 +13,7 @@ public class InitiateServer : MonoBehaviour {
             uLink.Network.isAuthoritativeServer = true;
             uLink.Network.useNat = true;
             uLink.Network.InitializeServer(32, serverPort);
+            uLink.Network.Instantiate(Resources.Load("PowerConsole"), new Vector3(-11f, 1f, 20f), Quaternion.identity, 0);
         } else {
             string ipadress = uLink.Network.player.ipAddress;
             
@@ -40,5 +41,6 @@ public class InitiateServer : MonoBehaviour {
         Debug.Log("Player connected from " + player.ipAddress + ":" + player.port);
         //uLink.Network.Instantiate(prefab, new Vector3(-9f, -9f, 9f), Quaternion.identity,0);
         uLink.Network.Instantiate(player, proxyPrefab, ownerPrefab, serverPrefab    , new Vector3(-9f, 1f, 9f), Quaternion.identity, 0);
+        
     }
 }
