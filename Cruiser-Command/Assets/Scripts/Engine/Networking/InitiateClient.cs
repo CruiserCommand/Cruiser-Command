@@ -5,6 +5,7 @@ using CC.eLog;
 public class InitiateClient : MonoBehaviour {
     public string serverAddress = "178.174.215.92";
     public int serverPort = 5666;
+    public bool connectToServer = true;
 
     void OnGUI(){
         if (uLink.Network.peerType == uLink.NetworkPeerType.Disconnected) {

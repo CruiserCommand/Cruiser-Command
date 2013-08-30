@@ -3,6 +3,8 @@ using System.Collections;
 
 public class CapitalMove : MonoBehaviour {
 
+    private float movementSpeed = 10f;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -11,19 +13,19 @@ public class CapitalMove : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetKey(KeyCode.W)){
-			Vector3 newPos = (new Vector3(1.0f,0.0f,0.0f) - gameObject.transform.position).normalized*Time.deltaTime;
+			Vector3 newPos = new Vector3(1.0f,0.0f,0.0f) *Time.deltaTime*movementSpeed;
 			gameObject.transform.position += newPos;
 		} 
 		if(Input.GetKey(KeyCode.S)){
-			Vector3 newPos = (new Vector3(-1.0f,0.0f,0.0f) - gameObject.transform.position).normalized*Time.deltaTime;
+			Vector3 newPos = new Vector3(-1.0f,0.0f,0.0f) *Time.deltaTime*movementSpeed;
 			gameObject.transform.position += newPos;
 		} 
 		if(Input.GetKey(KeyCode.D)){
-			Vector3 newPos = (new Vector3(0.0f,0.0f,-1.0f) - gameObject.transform.position).normalized*Time.deltaTime;
+			Vector3 newPos = new Vector3(0.0f,0.0f,-1.0f) *Time.deltaTime*movementSpeed;
 			gameObject.transform.position += newPos;
 		} 
 		if(Input.GetKey(KeyCode.A)){
-			Vector3 newPos = (new Vector3(0.0f,0.0f,1.0f) - gameObject.transform.position).normalized*Time.deltaTime;
+            Vector3 newPos = new Vector3(0.0f, 0.0f, 1.0f) * Time.deltaTime * movementSpeed;
 			gameObject.transform.position += newPos;
 		}
 		if(Input.GetKey(KeyCode.E)){

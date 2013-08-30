@@ -14,7 +14,7 @@ public class InitiateServer : MonoBehaviour {
             uLink.Network.isAuthoritativeServer = true;
             uLink.Network.useNat = true;
             uLink.Network.InitializeServer(32, serverPort);
-            uLink.Network.Instantiate(Resources.Load("PowerConsole"), new Vector3(-11f, 1f, 20f), Quaternion.identity, 0);
+            uLink.Network.Instantiate(Resources.Load("Console"), new Vector3(-11f, 1f, 20f), Quaternion.identity, 0);
         } else {
             string ipadress = uLink.Network.player.ipAddress;
             
