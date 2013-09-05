@@ -21,6 +21,7 @@ public class Player : uLink.MonoBehaviour {
 
     private GameObject ship = null;
     private SpaceMovement movementscript = null;
+    private UnitSelectionManager selectionManager;
 
     private uLink.NetworkPlayer networkPlayer;
 
@@ -30,6 +31,10 @@ public class Player : uLink.MonoBehaviour {
         Players.Add(this);
         Debug.Log("There are " + NumPlayers + " players. This is player: " + id);
         battlecruiser = GameObject.FindGameObjectsWithTag("Battlecruiser");
+    }
+
+    void Start() {
+        selectionManager = GameObject.FindWithTag("UnitManager").GetComponent<UnitSelectionManager>();
     }
 
     void Update() {
@@ -57,6 +62,10 @@ public class Player : uLink.MonoBehaviour {
 
     public int GetResource(Resource Type) {
         return ResourceManager.Resources[id, (int)Type];
+    }
+
+    public GameObject[] GetSelectedUnits() {
+        return selectionManager.GetSelectedObjects();
     }
 
     public static Player GetPlayer(int id) {

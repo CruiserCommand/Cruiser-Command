@@ -7,6 +7,7 @@ public class InitiateClient : MonoBehaviour {
     public int serverPort = 5666;
     public bool connectToServer = true;
 
+
     void OnGUI(){
         if (uLink.Network.peerType == uLink.NetworkPeerType.Disconnected && connectToServer) {
             uLink.Network.isAuthoritativeServer = true;
