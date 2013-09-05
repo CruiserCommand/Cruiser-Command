@@ -42,7 +42,7 @@ public class ConsoleControls : MonoBehaviour {
             obj.transform.position = newPos;
 
             // Halt movement
-            RTSUnitMovement movement = obj.GetComponent<RTSUnitMovement>();
+            UnitMovement movement = obj.GetComponent<UnitMovement>();
             movement.path = null;
 
             // Set unit's console
