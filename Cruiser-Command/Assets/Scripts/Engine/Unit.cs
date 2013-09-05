@@ -28,6 +28,15 @@ public class Unit : MonoBehaviour
         allUnits.Add(gameObject);
     }
 
+    // List of all abilities this unit has.
+    private List<Ability> abilities = new List<Ability>();
+
+    // Get all abilities this unit has.
+    public List<Ability> GetAbilities()
+    {
+        return new List<Ability>(abilities);
+    }
+
     void uLink_OnNetworkInstantiate(uLink.NetworkMessageInfo info) {
         if (info == null) {
             Debug.Log("info == null");
