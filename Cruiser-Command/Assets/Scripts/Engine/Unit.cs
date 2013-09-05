@@ -10,6 +10,9 @@ public class Unit : MonoBehaviour
     // Console that this Unit is currently attached to.
     public GameObject console;
 
+    // Player that owns this unit.
+    public Player owner;
+
     // List of all instances of Unit:s.
     private static List<GameObject> allUnits = new List<GameObject>();
 
@@ -23,5 +26,25 @@ public class Unit : MonoBehaviour
     public void Awake()
     {
         allUnits.Add(gameObject);
+    }
+
+    void uLink_OnNetworkInstantiate(uLink.NetworkMessageInfo info) {
+        if (info == null) {
+            Debug.Log("info == null");
+        }
+
+        if (info.networkView == null) {
+            Debug.Log("networkView == null");
+        }
+
+        if (info.networkView.initialData == null) {
+            Debug.Log("initialData == null");
+        } else {
+            Debug.Log("initialData NOT null");
+        }
+        int num = info.networkView.initialData.ReadInt32();
+        Debug.Log("Got number: " + num);
+        owner = Player.GetPlayer(num);
+        //Debug.Log("Got owner: " + owner.number);
     }
 }

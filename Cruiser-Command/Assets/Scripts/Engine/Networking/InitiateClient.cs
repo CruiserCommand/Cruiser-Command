@@ -8,7 +8,7 @@ public class InitiateClient : MonoBehaviour {
     public bool connectToServer = true;
 
     void OnGUI(){
-        if (uLink.Network.peerType == uLink.NetworkPeerType.Disconnected) {
+        if (uLink.Network.peerType == uLink.NetworkPeerType.Disconnected && connectToServer) {
             uLink.Network.isAuthoritativeServer = true;
             uLink.Network.useNat = true;
             uLink.Network.Connect(serverAddress, serverPort);
@@ -16,7 +16,11 @@ public class InitiateClient : MonoBehaviour {
             string ipadress = uLink.Network.player.ipAddress;
             string port = uLink.Network.player.port.ToString();
             GUI.Label(new Rect(140, 20, 250, 40), "IP Address: " + ipadress + ":" + port);
-            GUI.Label(new Rect(140, 60, 350, 40), "Running as a client");
+            if (connectToServer) {
+                GUI.Label(new Rect(140, 60, 350, 40), "Running as a client");
+            } else {
+                GUI.Label(new Rect(140, 60, 350, 40), "Running offline");
+            }
         }
 
     }
