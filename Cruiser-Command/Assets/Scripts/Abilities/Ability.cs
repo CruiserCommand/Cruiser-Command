@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-// Represents a unit; health, other unit-stuff.
+// Represents an ability with an assosciated hotkey.
+[System.Serializable]
 public abstract class Ability
 {
     private string name;

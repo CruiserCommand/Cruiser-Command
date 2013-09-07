@@ -97,7 +97,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 179698400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 380.071899, y: 286.094788, z: 0}
+  m_LocalPosition: {x: 607.253967, y: 286.1474, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 388383712}
@@ -759,6 +759,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 535217949}
   - 114: {fileID: 535217951}
+  - 114: {fileID: 535217950}
   m_Layer: 0
   m_Name: Console
   m_TagString: Untagged
@@ -779,6 +780,31 @@ Transform:
   - {fileID: 1843495912}
   - {fileID: 672643959}
   m_Father: {fileID: 482662970}
+--- !u!114 &535217950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400002, guid: 4cf016b00519eb142acc06fef24ebf96,
+    type: 2}
+  m_PrefabInternal: {fileID: 860136738}
+  m_GameObject: {fileID: 535217948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9be5429cbf387c4f9140f7d1908fb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proxyPrefab: 
+  ownerPrefab: 
+  serverPrefab: 
+  _parent: {fileID: 0}
+  _childIndex: -1
+  _children: []
+  stateSynchronization: 2
+  securable: 3
+  observed: {fileID: 0}
+  _manualViewID: 0
+  rpcReceiver: 2
+  listOfGameObjects: []
+  _prefabRoot: {fileID: 535217948}
 --- !u!114 &535217951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1981,7 +2007,7 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 11400002, guid: 4cf016b00519eb142acc06fef24ebf96, type: 2}
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 4cf016b00519eb142acc06fef24ebf96, type: 2}
   m_RootGameObject: {fileID: 535217948}
   m_IsPrefabParent: 0

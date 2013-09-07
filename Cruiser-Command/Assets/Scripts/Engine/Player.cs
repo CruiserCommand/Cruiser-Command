@@ -64,6 +64,21 @@ public class Player : uLink.MonoBehaviour {
         return ResourceManager.Resources[id, (int)Type];
     }
 
+    /**
+     * Returns a list of the selected units' Unit component.
+     */
+    public List<Unit> GetSelection() {
+        List<Unit> units = new List<Unit>();
+        foreach (GameObject obj in GetSelectedUnits()) {
+            units.Add(obj.GetComponent<Unit>());
+        }
+        return units;
+    }
+
+    /**
+     * Returns an array of the selected gameobjects.
+     * 
+     */
     public GameObject[] GetSelectedUnits() {
         return selectionManager.GetSelectedObjects();
     }
@@ -75,6 +90,15 @@ public class Player : uLink.MonoBehaviour {
             }
         }
 
+        return null;
+    }
+
+    public static Player GetCurrentPlayer() {
+        foreach (Player player in Players) {
+            if (uLink.Network.player == player.networkPlayer) {
+                return player;
+            }
+        }
         return null;
     }
 

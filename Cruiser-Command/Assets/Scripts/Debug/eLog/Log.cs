@@ -47,7 +47,7 @@ namespace CC.eLog
 
             sb.Append("(");
             sb.Append(LogLevelToString(level));
-            sb.Append(")");
+            sb.Append(")\n");
 
             sb.Append(message);
 

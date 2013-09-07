@@ -179,6 +179,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   console: {fileID: 0}
+  owner: {fileID: 0}
+  aaaa: []
 --- !u!114 &11400014
 MonoBehaviour:
   m_ObjectHideFlags: 1

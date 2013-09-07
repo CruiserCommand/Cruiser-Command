@@ -2,37 +2,33 @@
 using System.Collections.Generic;
 
 // Checks user events and executes assosiated abilities.
-public class EventChecker : MonoBehaviour
-{
+public class EventChecker : MonoBehaviour {
     /*
      * TO-DO Should probably send the current mouse position for all abilites, this wont work for e.g. Wraith EMP
      */
 
     // List of all the Mouse KeyCodes...
-    private static const KeyCode[] mouseButtons = new KeyCode[]{KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.Mouse2, KeyCode.Mouse3, KeyCode.Mouse4, KeyCode.Mouse5, KeyCode.Mouse6};
+    private static KeyCode[] mouseButtons = new KeyCode[] { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.Mouse2, KeyCode.Mouse3, KeyCode.Mouse4, KeyCode.Mouse5, KeyCode.Mouse6 };
 
-    public void Update()
-    {
-        if (Input.anyKeyDown)
-        {
-            List<Unit> selectedUnits = null; // TO-DO Player.GetCurrent().GetSelection();
-
-            foreach (Unit unit in selectedUnits)
-            {
-                CheckAbilitiesHotkeys(unit.GetAbilities());
+    public void Update() {
+        if (Input.anyKeyDown) {
+            List<Unit> selectedUnits = Player.GetCurrentPlayer().GetSelection(); // TO-DO Player.GetCurrent().GetSelection();
+            
+            if (selectedUnits != null) {
+                foreach (Unit unit in selectedUnits) {
+                    CheckAbilitiesHotkeys(unit.GetAbilities());
+                }
             }
         }
     }
 
-    private void CheckAbilitiesHotkeys(List<Ability> abilities)
-    {
-        foreach (Ability ability in abilities)
-        {
+    private void CheckAbilitiesHotkeys(List<Ability> abilities) {
+        Debug.Log("Checked ability hotkeys");
+        foreach (Ability ability in abilities) {
             Hotkey hotkey = ability.GetHotkey();
 
             // If the ability is triggered by mouse, don't check if it's also triggered by keys; could cause ability to be triggered twice.
-            if (MousekeyMatchesHotkey(hotkey))
-            {
+            if (MousekeyMatchesHotkey(hotkey)) {
                 // Find the coordinates of the click
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit info;
@@ -40,8 +36,7 @@ public class EventChecker : MonoBehaviour
                 Vector3 target = info.point;
 
                 ability.DoEffect(target);
-            } else if (CurrentKeysMatchesHotkey(hotkey))
-            {
+            } else if (CurrentKeysMatchesHotkey(hotkey)) {
                 Vector3 target = new Vector3(float.MinValue, float.MinValue, float.MinValue);
                 ability.DoEffect(target);
             }
@@ -49,12 +44,9 @@ public class EventChecker : MonoBehaviour
     }
 
     // Special care needs to be taken if triggered by mouse because we need a target.
-    private bool MousekeyMatchesHotkey(Hotkey hotkey)
-    {
-        if (HotkeyIsMouseButton(hotkey))
-        {
-            if (CurrentKeysMatchesHotkey(hotkey))
-            {
+    private bool MousekeyMatchesHotkey(Hotkey hotkey) {
+        if (HotkeyIsMouseButton(hotkey)) {
+            if (CurrentKeysMatchesHotkey(hotkey)) {
                 return true;
             }
         }
@@ -62,12 +54,9 @@ public class EventChecker : MonoBehaviour
         return false;
     }
 
-    private bool HotkeyIsMouseButton(Hotkey hotkey)
-    {
-        foreach (KeyCode mouseButton in mouseButtons)
-        {
-            if (hotkey.GetKey().Equals(mouseButton))
-            {
+    private bool HotkeyIsMouseButton(Hotkey hotkey) {
+        foreach (KeyCode mouseButton in mouseButtons) {
+            if (hotkey.GetKey() == mouseButton) {
                 return true;
             }
         }
@@ -75,8 +64,7 @@ public class EventChecker : MonoBehaviour
         return false;
     }
 
-    private bool CurrentKeysMatchesHotkey(Hotkey hotkey)
-    {
+    private bool CurrentKeysMatchesHotkey(Hotkey hotkey) {
         // Only trigger if correct key was recently pressed.
         bool rightKey = Input.GetKeyDown(hotkey.GetKey());
 

@@ -18,7 +18,7 @@ public class InitiateServer : MonoBehaviour {
         players = new GameObject[12];
         currPlayer = 0;
     }
-    // TODO: foo stuff
+
     void OnGUI() {
         if (uLink.Network.peerType == uLink.NetworkPeerType.Disconnected) {
             uLink.Network.isAuthoritativeServer = true;
