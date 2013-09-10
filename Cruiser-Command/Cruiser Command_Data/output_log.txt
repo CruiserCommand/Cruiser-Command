@@ -1,46 +1,29 @@
-Initialize engine version: 4.1.5f1 (ed5ea3281df6)
+Initialize engine version: 4.2.1f4 (4d30acc925c2)
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 9.0c [aticfx32.dll 8.17.10.1172]
+    Version:  Direct3D 9.0c [aticfx32.dll 8.17.10.1191]
     Renderer: AMD Radeon HD 6900 Series
     Vendor:   ATI
-    VRAM:     2026 MB (via DXGI)
+    VRAM:     2027 MB (via DXGI)
     Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=1 DF24=1 INTZ=1 RAWZ=0 NULL=1 RESZ=1 SlowINTZ=1
 Begin MonoManager ReloadAssembly
-Platform assembly: C:\Users\James\Desktop\Cruiser-Command\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading C:\Users\James\Desktop\Cruiser-Command\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\Users\James\Desktop\Cruiser-Command\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
-Loading C:\Users\James\Desktop\Cruiser-Command\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
-Platform assembly: C:\Users\James\Desktop\Cruiser-Command\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading C:\Users\James\Desktop\Cruiser-Command\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: C:\Users\James\Desktop\Cruiser-Command\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\Ionic.Zip.Reduced.dll (this message is harmless)
-Loading C:\Users\James\Desktop\Cruiser-Command\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\Ionic.Zip.Reduced.dll into Unity Child Domain
-Platform assembly: C:\Users\James\Desktop\Cruiser-Command\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\JsonFx.Json.dll (this message is harmless)
-Loading C:\Users\James\Desktop\Cruiser-Command\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\JsonFx.Json.dll into Unity Child Domain
-Platform assembly: C:\Users\James\Desktop\Cruiser-Command\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\NGUI.dll (this message is harmless)
-Loading C:\Users\James\Desktop\Cruiser-Command\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\NGUI.dll into Unity Child Domain
-- Completed reload, in  0.043 seconds
-desktop: 1920x1080 60Hz; virtual: 3200x1080 at 0,0
+Platform assembly: D:\Users\James\Documents\GitHub\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\Users\James\Documents\GitHub\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\Users\James\Documents\GitHub\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading D:\Users\James\Documents\GitHub\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: D:\Users\James\Documents\GitHub\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\Users\James\Documents\GitHub\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\Users\James\Documents\GitHub\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\Ionic.Zip.Reduced.dll (this message is harmless)
+Loading D:\Users\James\Documents\GitHub\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\Ionic.Zip.Reduced.dll into Unity Child Domain
+Platform assembly: D:\Users\James\Documents\GitHub\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\JsonFx.Json.dll (this message is harmless)
+Loading D:\Users\James\Documents\GitHub\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\JsonFx.Json.dll into Unity Child Domain
+Platform assembly: D:\Users\James\Documents\GitHub\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\NGUI.dll (this message is harmless)
+Loading D:\Users\James\Documents\GitHub\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\NGUI.dll into Unity Child Domain
+Platform assembly: D:\Users\James\Documents\GitHub\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\uLink.dll (this message is harmless)
+Loading D:\Users\James\Documents\GitHub\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\uLink.dll into Unity Child Domain
+- Completed reload, in  0.118 seconds
 <RI> Initializing input.
 <RI> Input initialized.
-Platform assembly: C:\Users\James\Desktop\Cruiser-Command\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\System.dll (this message is harmless)
-Profiler is only supported with Pro License
- 
-(Filename: C:/BuildAgent/work/7535de4ca26c26ac/Runtime/Profiler/ProfilerConnection.cpp Line: 197)
-
-I quit!
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-ButtonActions:QuitBtn() (at C:\Users\James\Desktop\Cruiser-Command\Cruiser-Command\Cruiser-Command\Assets\Scripts\ButtonActions.cs:16)
-UnityEngine.GameObject:SendMessage(String, Object, SendMessageOptions)
-UIButtonMessage:Send() (at C:\Users\James\Desktop\Cruiser-Command\Cruiser-Command\Cruiser-Command\Assets\Plugins\NGUI\Interaction\UIButtonMessage.cs:77)
-UIButtonMessage:OnClick() (at C:\Users\James\Desktop\Cruiser-Command\Cruiser-Command\Cruiser-Command\Assets\Plugins\NGUI\Interaction\UIButtonMessage.cs:56)
-UnityEngine.GameObject:SendMessage(String, Object, SendMessageOptions)
-UnityEngine.GameObject:SendMessage(String, SendMessageOptions)
-UIBaseCamera:ProcessTouch(Boolean, Boolean)
-UIBaseCamera:ProcessMouse()
-UIBaseCamera:Update()
- 
-(Filename: C Line: 0)
-
-Waiting for finish
+desktop: 1920x1080 60Hz; virtual: 3200x1080 at 0,0
+Platform assembly: D:\Users\James\Documents\GitHub\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\System.dll (this message is harmless)
+Platform assembly: D:\Users\James\Documents\GitHub\Cruiser-Command\Cruiser-Command\Cruiser Command_Data\Managed\System.Core.dll (this message is harmless)
