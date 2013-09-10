@@ -12,6 +12,12 @@ using UnityEngine;
 using System.Collections;
 
 public class ButtonActions : MonoBehaviour {
+	public string serverAddress = "127.0.0.1";
+	public int serverPort = 69066;
+	public GameObject proxyPrefab = null;
+	public GameObject ownerPrefab = null;
+	public GameObject serverPrefab = null;
+
     public void ConnectBtn() {
     }
 
