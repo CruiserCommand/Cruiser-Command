@@ -97,7 +97,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 179698400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 641.747803, y: 286.00177, z: 0}
+  m_LocalPosition: {x: 640.621948, y: 286.000885, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 388383712}
@@ -1800,6 +1800,7 @@ GameObject:
   - 4: {fileID: 859150220}
   - 114: {fileID: 859150221}
   - 114: {fileID: 859150222}
+  - 114: {fileID: 859150223}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: NetworkManager
@@ -1830,8 +1831,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serverAddress: 127.0.0.1
-  serverPort: 54646
   connectToServer: 1
+  username: 
 --- !u!114 &859150222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1850,6 +1851,30 @@ MonoBehaviour:
   - {fileID: 100000, guid: 1aecee9d70b65434cbc6ab87c4082bb6, type: 2}
   - {fileID: 100000, guid: b8e045a515feb314691a8ba1d671dbe8, type: 2}
   replaceIfExists: 0
+--- !u!114 &859150223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 859150219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9be5429cbf387c4f9140f7d1908fb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proxyPrefab: 
+  ownerPrefab: 
+  serverPrefab: 
+  _parent: {fileID: 0}
+  _childIndex: -1
+  _children: []
+  stateSynchronization: 2
+  securable: 3
+  observed: {fileID: 0}
+  _manualViewID: 1
+  rpcReceiver: 5
+  listOfGameObjects: []
+  _prefabRoot: {fileID: 0}
 --- !u!1001 &860136738
 Prefab:
   m_ObjectHideFlags: 0
@@ -2062,7 +2087,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1342773934}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 641.747803, y: -284.99826, z: 0}
+  m_LocalPosition: {x: 640.621948, y: -284.999115, z: 0}
   m_LocalScale: {x: 1.00010645, y: 1.00010645, z: 1.00010645}
   m_Children:
   - {fileID: 291508675}

@@ -2,9 +2,9 @@
 using System.Collections;
 using CC.eLog;
 
-public class InitiateServer : MonoBehaviour {
-    public string serverAddress = "127.0.0.1";
-    public int serverPort = 5666;
+public class InitiateServer : uLink.MonoBehaviour {
+	public const int serverPort = 9001;
+	public UILabel serverText;
     public GameObject proxyPrefab = null;
     public GameObject ownerPrefab = null;
     public GameObject serverPrefab = null;
@@ -14,23 +14,24 @@ public class InitiateServer : MonoBehaviour {
 
     public GameObject[] players;
 
-    void Start() {
+	void Start() {
         players = new GameObject[12];
         currPlayer = 0;
     }
 
     void OnGUI() {
-        if (uLink.Network.peerType == uLink.NetworkPeerType.Disconnected) {
+		if (uLink.Network.peerType == uLink.NetworkPeerType.Disconnected) {
             uLink.Network.isAuthoritativeServer = true;
             uLink.Network.useNat = true;
             uLink.Network.InitializeServer(32, serverPort);
-            uLink.Network.Instantiate("Console", new Vector3(-11f, 1f, 20f), Quaternion.identity, 0);
+			uLink.Network.Instantiate("Console", new Vector3(-11f, 1f, 20f), Quaternion.identity, 0);
+			serverText.text = "Server IP: " + uLink.Network.player.ipAddress + ":" + serverPort.ToString();
         } else {
-            string ipadress = uLink.Network.player.ipAddress;
+			string ipadress = uLink.Network.player.ipAddress;
             
             string port = uLink.Network.player.port.ToString();
-            GUI.Label(new Rect(140, 20, 250, 40), "IP Address: " + ipadress + ":" + port);
-            GUI.Label(new Rect(140, 60, 350, 40), "Running as a server");
+			GUI.Label(new Rect(140, 20, 250, 40), "IP Address: " + ipadress + ":" + port);
+			GUI.Label(new Rect(140, 60, 350, 40), "Running as a server");
         }
 
     }
@@ -59,4 +60,10 @@ public class InitiateServer : MonoBehaviour {
             Debug.Log("No battlecruiser");
         }
     }
+
+	[RPC]
+	public void AddPlayer(string Name, uLink.NetworkMessageInfo info) {
+		UILabel PlayerList = GameObject.Find("PlayerList").GetComponent<UILabel>() as UILabel;
+		PlayerList.text += "\n    " + Name + "\n        IP: " + info.sender.ipAddress;
+	}
 }

@@ -11,17 +11,44 @@
 using UnityEngine;
 using System.Collections;
 
-public class ButtonActions : MonoBehaviour {
+public class ButtonActions : uLink.MonoBehaviour {
 	public string serverAddress = "127.0.0.1";
-	public int serverPort = 69066;
+	public string username;
 	public GameObject proxyPrefab = null;
 	public GameObject ownerPrefab = null;
 	public GameObject serverPrefab = null;
+	public UIInput ServerInput;
+	public UIInput UsernameInput;
+	public AudioSource music;
 
-    public void ConnectBtn() {
+	public void FadeOutMusic() {
+		StartCoroutine(FadeMusic());
+	}
+
+	IEnumerator FadeMusic() {
+		while (music.volume > 0.1f) {
+			music.volume = Mathf.Lerp(music.volume, 0.0f, Time.deltaTime);
+			yield return 0;
+		}
+		music.volume = 0;
+	}
+
+	public IEnumerator LoadLevelDelayed(string level, float delay) {
+		CameraFade.StartAlphaFade(Color.black, false, delay);
+		yield return new WaitForSeconds(delay / 2 - 0.1f);
+		Application.LoadLevel(level);
+	}
+
+	public void ConnectBtn() {
+		serverAddress = ServerInput.text;
+		username = UsernameInput.text;
+		DontDestroyOnLoad(this);
+		FadeOutMusic();
+		StartCoroutine(LoadLevelDelayed("Client", 5.0f));
     }
 
     public void StartServerBtn() {
+		Application.LoadLevel("Server");
     }
 
     public void QuitBtn() {

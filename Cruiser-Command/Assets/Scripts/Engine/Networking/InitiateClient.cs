@@ -2,13 +2,20 @@
 using System.Collections;
 using CC.eLog;
 
-public class InitiateClient : MonoBehaviour {
+public class InitiateClient : uLink.MonoBehaviour {
     public string serverAddress = "178.174.215.92";
-    public int serverPort = 5666;
+    public const int serverPort = 9001;
     public bool connectToServer = true;
+	public string username;
 
+	void Start() {
+		GameObject buttonManager = GameObject.Find("ButtonActionManager");
+		ButtonActions buttonActionScript = buttonManager.GetComponent("ButtonActions") as ButtonActions;
+		serverAddress = buttonActionScript.serverAddress;
+		username = buttonActionScript.username;
+	}
 
-    void OnGUI(){
+    void OnGUI() {
         if (uLink.Network.peerType == uLink.NetworkPeerType.Disconnected && connectToServer) {
             uLink.Network.isAuthoritativeServer = true;
             uLink.Network.useNat = true;
@@ -23,11 +30,11 @@ public class InitiateClient : MonoBehaviour {
                 GUI.Label(new Rect(140, 60, 350, 40), "Running offline");
             }
         }
-
     }
 
     void uLink_OnConnectedToServer() {
         Log.Info("network", "Now connected to server");
         Log.Info("network", "Local port = " + uLink.Network.player.port.ToString());
+		networkView.RPC("AddPlayer", uLink.RPCMode.Server, username);
     }
 }
