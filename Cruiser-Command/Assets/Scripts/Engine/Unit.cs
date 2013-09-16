@@ -18,7 +18,6 @@ public class Unit : MonoBehaviour
 
     // List of all abilities this unit has.
     public List<Ability> abilities = new List<Ability>();
-    //public List<TestAbility> aaaa = new List<TestAbility>();
 
     // Run once for each instance of this; i.e. once for each time this is attached as a component.
     public void Awake()
@@ -38,6 +37,7 @@ public class Unit : MonoBehaviour
     }
 
     void uLink_OnNetworkInstantiate(uLink.NetworkMessageInfo info) {
+        //abilities.Add(new Move());
         if (info == null) {
             Debug.Log("info == null");
         }

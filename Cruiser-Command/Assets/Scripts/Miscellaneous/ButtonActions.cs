@@ -41,7 +41,13 @@ public class ButtonActions : uLink.MonoBehaviour {
 
 	public void ConnectBtn() {
 		serverAddress = ServerInput.text;
+        if (serverAddress.Equals("")) {
+            serverAddress = "127.0.0.1";
+        }
 		username = UsernameInput.text;
+        if (username.Equals("")) {
+            username = "Siretu";
+        }
 		DontDestroyOnLoad(this);
 		FadeOutMusic();
 		StartCoroutine(LoadLevelDelayed("Client", 5.0f));

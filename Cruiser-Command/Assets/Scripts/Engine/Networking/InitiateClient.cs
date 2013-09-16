@@ -35,6 +35,6 @@ public class InitiateClient : uLink.MonoBehaviour {
     void uLink_OnConnectedToServer() {
         Log.Info("network", "Now connected to server");
         Log.Info("network", "Local port = " + uLink.Network.player.port.ToString());
-		networkView.RPC("AddPlayer", uLink.RPCMode.Server, username);
+		networkView.RPC("AddPlayer2", uLink.RPCMode.Server, username);
     }
 }

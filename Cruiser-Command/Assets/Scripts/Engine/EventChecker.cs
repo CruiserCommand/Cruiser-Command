@@ -23,7 +23,6 @@ public class EventChecker : MonoBehaviour {
     }
 
     private void CheckAbilitiesHotkeys(List<Ability> abilities) {
-        Debug.Log("Checked ability hotkeys");
         foreach (Ability ability in abilities) {
             Hotkey hotkey = ability.GetHotkey();
 

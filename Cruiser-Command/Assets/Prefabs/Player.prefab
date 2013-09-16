@@ -61,8 +61,9 @@ MonoBehaviour:
   securable: 3
   observed: {fileID: 0}
   _manualViewID: 0
-  rpcReceiver: 2
-  listOfGameObjects: []
+  rpcReceiver: 6
+  listOfGameObjects:
+  - {fileID: 100000}
   _prefabRoot: {fileID: 100000}
 --- !u!1001 &100100000
 Prefab:

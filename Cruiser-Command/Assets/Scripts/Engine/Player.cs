@@ -23,13 +23,13 @@ public class Player : uLink.MonoBehaviour {
     private SpaceMovement movementscript = null;
     private UnitSelectionManager selectionManager;
 
-    private uLink.NetworkPlayer networkPlayer;
+    public uLink.NetworkPlayer networkPlayer;
 
     void Awake() {
         // In the multiplayer we will have to update the list and player ids upon joining a game
-        id = NumPlayers++;
-        Players.Add(this);
-        Debug.Log("There are " + NumPlayers + " players. This is player: " + id);
+        //id = Players.IndexOf(this);
+        //Players.Add(this);
+        Debug.Log("There are " + Players.Count + " players. This is player: " + id);
         battlecruiser = GameObject.FindGameObjectsWithTag("Battlecruiser");
     }
 
@@ -83,6 +83,19 @@ public class Player : uLink.MonoBehaviour {
         return selectionManager.GetSelectedObjects();
     }
 
+
+    /**
+     * RPC sent by server for each player in the game. Will be sent to everyone to update their static players list.
+     */
+    [RPC]
+    public void AddPlayer(uLink.NetworkViewID netid, int i, uLink.NetworkMessageInfo info) {
+        // Find the gameobject with the provided netid.
+        GameObject player = uLink.NetworkView.Find(netid).gameObject;
+        Player p = player.GetComponent<Player>();
+        Players.Add(p);
+        p.id = i;
+    }
+
     public static Player GetPlayer(int id) {
         foreach (Player player in Players) {
             if (id == player.id) {
@@ -104,6 +117,7 @@ public class Player : uLink.MonoBehaviour {
 
     void uLink_OnNetworkInstantiate(uLink.NetworkMessageInfo info) {
         networkPlayer = gameObject.transform.GetComponent<uLinkNetworkView>().owner;
+        Debug.Log("Instantiated player");
     }
 
     // Returns the battlecruiser of the player.
