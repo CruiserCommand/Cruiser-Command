@@ -71,7 +71,7 @@ public class UnitOrder : uLink.MonoBehaviour {
                 gameObject.transform.LookAt(order.target + new Vector3(0, gameObject.transform.position.y - order.target.y, 0));
                 CurrentOrder = order.order;
                 TargetPosition = order.target;
-                GameObject console = gameObject.GetComponent<Unit>().console;
+                GameObject console = gameObject.GetComponent<Marine>().GetConsole();
                 if (console != null) {
                     console.GetComponent<ConsoleControls>().DisconnectConsole();
                 }

@@ -5,10 +5,15 @@ using System.Collections.Generic;
 [System.Serializable]
 public abstract class Ability
 {
-    private string name;
+    protected string name;
 
     // Vector3(float.MinValue, float.MinValue, float.MinValue) if no target; e.g. Engine Boost
     public abstract void DoEffect(Vector3 target);
 
     public abstract Hotkey GetHotkey();
+
+    public string GetName()
+    {
+        return name;
+    }
 }

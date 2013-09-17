@@ -20,6 +20,13 @@ public class Hotkey
         this.ctrl = ctrl;
     }
 
+    public Hotkey(Hotkey hotkey)
+    {
+        this.key = hotkey.key;
+        this.shift = hotkey.shift;
+        this.ctrl = hotkey.ctrl;
+    }
+
     public KeyCode GetKey() { return key; }
     public bool GetShift() { return shift; }
     public bool GetCtrl() { return ctrl; }
