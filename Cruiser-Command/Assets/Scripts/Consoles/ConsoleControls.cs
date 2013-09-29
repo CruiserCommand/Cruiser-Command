@@ -68,7 +68,9 @@ public class ConsoleControls : MonoBehaviour {
 
             // Clear unit's console
             Marine marine = obj.GetComponent<Marine>();
-            marine.LeaveConsole();
+			marine.LeaveConsole();
+
+			gameObject.transform.parent.SendMessage("DisconnectConsole");
         }
     }
 }
