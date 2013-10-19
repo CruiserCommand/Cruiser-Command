@@ -36,7 +36,7 @@ public class Marine : Crew {
     }
 
     // List of all marines that have been created.
-    private static List<GameObject> allMarines;
+    private static List<GameObject> allMarines = new List<GameObject>();
 
     // Get a list of all marines that have been created.
     public static List<GameObject> GetAllMarines()
