@@ -57,9 +57,10 @@ public class InitiateServer : uLink.MonoBehaviour {
         //battlecruisers[0] = uLink.Network.Instantiate("Battlecruiser", Vector3.zero, Quaternion.identity, 0);
         Log.Info("network", "Player connected from " + player.ipAddress + ":" + player.port);
         GameObject owner = uLink.Network.Instantiate(player,"Player", Vector3.zero, Quaternion.identity, 0);
+
         uLink.NetworkViewID ID = owner.uLinkNetworkView().viewID;
         networkView.RPC("AddPlayer", uLink.RPCMode.AllBuffered, ID, currPlayer);
-        currPlayer++;
+        //currPlayer++;
         GameObject u = uLink.Network.Instantiate(player, proxyPrefab, ownerPrefab, serverPrefab, new Vector3(0f, 1.1f, 0f), Quaternion.identity, 0, currPlayer++);
         if (battlecruisers[0] != null) {
             //u.transform.parent = battlecruisers[0].transform;
@@ -69,7 +70,7 @@ public class InitiateServer : uLink.MonoBehaviour {
     }
 
 	[RPC]
-	public void AddPlayer2(string Name, uLink.NetworkMessageInfo info) {
+	public void RegisterUser(string Name, uLink.NetworkMessageInfo info) {
 		UILabel PlayerList = GameObject.Find("PlayerList").GetComponent<UILabel>() as UILabel;
         PlayerList.text += "\n    " + Name + "\n        IP: " + info.sender.ipAddress + "\n        id: " + info.sender.id;
         

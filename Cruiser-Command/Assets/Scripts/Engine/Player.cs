@@ -14,7 +14,7 @@ using uLink;
 
 public class Player : uLink.MonoBehaviour {
     private static int NumPlayers = 0;
-    private static List<Player> Players = new List<Player>();
+    
     public int id = 0;
 
     private static GameObject[] battlecruiser;
@@ -25,17 +25,24 @@ public class Player : uLink.MonoBehaviour {
 
     public uLink.NetworkPlayer networkPlayer;
 
-    void Awake() {
-        // In the multiplayer we will have to update the list and player ids upon joining a game
-        //id = Players.IndexOf(this);
-        //Players.Add(this);
-        Debug.Log("There are " + Players.Count + " players. This is player: " + id);
-        battlecruiser = GameObject.FindGameObjectsWithTag("Battlecruiser");
+    void uLink_OnNetworkInstantiate(uLink.NetworkMessageInfo info) {
+        networkPlayer = gameObject.transform.GetComponent<uLinkNetworkView>().owner;
+        Debug.Log("Instantiated player and got: " + id);
     }
 
     void Start() {
         selectionManager = GameObject.FindWithTag("UnitManager").GetComponent<UnitSelectionManager>();
+        Debug.Log("Started player and got: " + id);
     }
+
+    void Awake() {
+        // In the multiplayer we will have to update the list and player ids upon joining a game
+        //id = Players.IndexOf(this);
+        //Players.Add(this);
+        //Debug.Log("There are " + PlayerManager.Players.Count + " players. This is player: " + id);
+        battlecruiser = GameObject.FindGameObjectsWithTag("Battlecruiser");
+    }
+
 
     void Update() {
         if (ship != null) {
@@ -48,21 +55,7 @@ public class Player : uLink.MonoBehaviour {
         }
     }
 
-    public void AddResource(int Amount, Resource Type) {
-        ResourceManager.Resources[id, (int)Type] += Amount;
-    }
 
-    public void SubtractResource(int Amount, Resource Type) {
-        ResourceManager.Resources[id, (int)Type] -= Amount;
-    }
-
-    public void SetResource(int Amount, Resource Type) {
-        ResourceManager.Resources[id, (int)Type] = Amount;
-    }
-
-    public int GetResource(Resource Type) {
-        return ResourceManager.Resources[id, (int)Type];
-    }
 
     /**
      * Returns a list of the selected units' Unit component.
@@ -84,41 +77,7 @@ public class Player : uLink.MonoBehaviour {
     }
 
 
-    /**
-     * RPC sent by server for each player in the game. Will be sent to everyone to update their static players list.
-     */
-    [RPC]
-    public void AddPlayer(uLink.NetworkViewID netid, int i, uLink.NetworkMessageInfo info) {
-        // Find the gameobject with the provided netid.
-        GameObject player = uLink.NetworkView.Find(netid).gameObject;
-        Player p = player.GetComponent<Player>();
-        Players.Add(p);
-        p.id = i;
-    }
 
-    public static Player GetPlayer(int id) {
-        foreach (Player player in Players) {
-            if (id == player.id) {
-                return player;
-            }
-        }
-
-        return null;
-    }
-
-    public static Player GetCurrentPlayer() {
-        foreach (Player player in Players) {
-            if (uLink.Network.player == player.networkPlayer) {
-                return player;
-            }
-        }
-        return null;
-    }
-
-    void uLink_OnNetworkInstantiate(uLink.NetworkMessageInfo info) {
-        networkPlayer = gameObject.transform.GetComponent<uLinkNetworkView>().owner;
-        Debug.Log("Instantiated player");
-    }
 
     // Returns the battlecruiser of the player.
     public static GameObject getTeamBattlecruiser(int player){
@@ -132,5 +91,23 @@ public class Player : uLink.MonoBehaviour {
     public void setShip(GameObject newShip) {
         ship = newShip;
         movementscript = ship.GetComponent<SpaceMovement>();
+    }
+
+
+    /**
+     * Gets this player's unique integer identifier.
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Sets this player's unique integer identifier.
+     */
+    public void setId(int newId) {
+        id = newId;
+        if (PlayerManager.clientPlayer == networkPlayer) {
+            PlayerManager.id = newId;
+        }
     }
 }

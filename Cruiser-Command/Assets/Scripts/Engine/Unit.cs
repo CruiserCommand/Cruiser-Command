@@ -52,8 +52,8 @@ public class Unit : MonoBehaviour
             Debug.Log("initialData NOT null");
         }
         int num = info.networkView.initialData.ReadInt32();
-        Debug.Log("Got number: " + num);
-        owner = Player.GetPlayer(num);
+        //Debug.Log("Got number: " + num);
+        owner = PlayerManager.GetPlayer(num);
         //Debug.Log("Got owner: " + owner.number);
     }
 }

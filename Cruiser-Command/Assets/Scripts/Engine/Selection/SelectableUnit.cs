@@ -31,6 +31,7 @@ public class SelectableUnit : MonoBehaviour {
         }
         // Select the unit
         if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift)) {
+            Debug.Log("Selecting?");
             UnitManager.ClearSelection();
             UnitManager.SelectUnit(gameObject);
         } else {
@@ -43,6 +44,7 @@ public class SelectableUnit : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider col) {
+        Debug.Log("Selected");
         // This keeps track of the number of units currently highlighted
         UnitManager.HighlightUnit(gameObject);
         // If the Selection Circle doesn't exist, create it at the unit
@@ -63,6 +65,8 @@ public class SelectableUnit : MonoBehaviour {
     void Update() {
         // Here is the section of code I put back in
         if (SelectionCircleInstance == null && (UnitManager.IsHighlighted(gameObject) || UnitManager.IsSelected((gameObject)))) {
+
+            Debug.Log("No circle. Selecting...");
             SelectionCircleInstance = GameObject.Instantiate(SelectionCircle, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 0.1f, gameObject.transform.position.z), Quaternion.identity) as GameObject;
             // Parent it to the unit so it follows it
             SelectionCircleInstance.transform.parent = gameObject.transform;

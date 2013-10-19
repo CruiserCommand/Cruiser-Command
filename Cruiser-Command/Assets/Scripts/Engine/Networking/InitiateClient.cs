@@ -7,6 +7,7 @@ public class InitiateClient : uLink.MonoBehaviour {
     public const int serverPort = 9001;
     public bool connectToServer = true;
 	public string username;
+    public GameObject playerManager;
 
 	void Start() {
 		GameObject buttonManager = GameObject.Find("ButtonActionManager");
@@ -35,6 +36,8 @@ public class InitiateClient : uLink.MonoBehaviour {
     void uLink_OnConnectedToServer() {
         Log.Info("network", "Now connected to server");
         Log.Info("network", "Local port = " + uLink.Network.player.port.ToString());
-		networkView.RPC("AddPlayer2", uLink.RPCMode.Server, username);
+		networkView.RPC("RegisterUser", uLink.RPCMode.Server);
+        PlayerManager.InitiatePlayer(uLink.Network.player); // Registers the client as the current player in the Player manager.
+        //GameObject playerManager = uLink.Network.Instantiate(uLink.Network.player, "PlayerManager", Vector3.zero, Quaternion.identity, 0);
     }
 }

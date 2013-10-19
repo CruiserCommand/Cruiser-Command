@@ -12,7 +12,7 @@ public class EventChecker : MonoBehaviour {
 
     public void Update() {
         if (Input.anyKeyDown) {
-            List<Unit> selectedUnits = Player.GetCurrentPlayer().GetSelection(); // TO-DO Player.GetCurrent().GetSelection();
+            List<Unit> selectedUnits = PlayerManager.GetCurrentPlayer().GetSelection(); // TO-DO Player.GetCurrent().GetSelection();
             
             if (selectedUnits != null) {
                 foreach (Unit unit in selectedUnits) {

@@ -13,7 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class UnitSelectionManager : MonoBehaviour {
-	private List<GameObject> SelectedObjects;
+	public List<GameObject> SelectedObjects;
 	private List<GameObject> HighlightedObjects;
 
     void Start() {

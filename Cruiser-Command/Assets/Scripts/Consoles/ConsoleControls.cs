@@ -8,6 +8,7 @@ public class ConsoleControls : MonoBehaviour {
 
     private GameObject occupier = null;
     private GameObject lastOccupier = null;
+    private UnitSelectionManager UnitManager;
 
     private const double CIRCLE_RADIUS = 2;
 
@@ -15,6 +16,7 @@ public class ConsoleControls : MonoBehaviour {
 	void Start () {
         circle = gameObject.transform.Find("Circle").gameObject;
         screen = gameObject.transform.Find("Console Screen").gameObject;
+        UnitManager = GameObject.FindWithTag("UnitManager").GetComponent<UnitSelectionManager>();
 	}
 
 	// Update is called once per frame
@@ -48,6 +50,8 @@ public class ConsoleControls : MonoBehaviour {
             // Set unit's console
             Unit stats = obj.GetComponent<Unit>();
             stats.console = gameObject;
+
+            UnitManager.SelectUnit(gameObject.transform.parent.gameObject);
 
             obj.transform.LookAt(screen.transform.position);
 
