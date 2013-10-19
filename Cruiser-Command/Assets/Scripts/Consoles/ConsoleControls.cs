@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ConsoleControls : MonoBehaviour {
@@ -21,13 +21,19 @@ public class ConsoleControls : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        // If noone is in the console already...
         if (occupier == null) {
-            foreach (GameObject obj in Unit.GetAllUnitsObjects()) {
-                if (obj != null && occupier == null && obj != lastOccupier && Vector3.Distance(obj.transform.position, circle.transform.position) <= CIRCLE_RADIUS) {
+            // Loop through all marines.
+            foreach (GameObject obj in Marine.GetAllMarines()) {
+                // Check that it wasn't the last marine (who hasn't had time to move from the circle) and that the marine is in range.
+                if (obj != lastOccupier && Vector3.Distance(obj.transform.position, circle.transform.position) <= CIRCLE_RADIUS)
+                {
                     EnterConsole(obj);
                     break;
                 }
             }
+
+            // If the last marine to be in the console has left the circle; clear lastOccupier so s/he may enter again.
             if (lastOccupier != null && Vector3.Distance(lastOccupier.transform.position, circle.transform.position) > CIRCLE_RADIUS) {
                 lastOccupier = null;
             }
@@ -35,28 +41,28 @@ public class ConsoleControls : MonoBehaviour {
 	}
 
     public void EnterConsole(GameObject obj) {
-        if (obj != null) {
-            occupier = obj;
+        // Save who is in the console right now
+        occupier = obj;
 
-            // Snap to circle
-            Vector3 newPos = circle.transform.position;
-            newPos.y = obj.transform.position.y;
-            obj.transform.position = newPos;
+        // Snap to circle
+        Vector3 newPos = circle.transform.position;
+        newPos.y = obj.transform.position.y;
+        obj.transform.position = newPos;
 
-            // Halt movement
-            UnitMovement movement = obj.GetComponent<UnitMovement>();
-            movement.path = null;
+        obj.transform.LookAt(screen.transform.position);
 
-            // Set unit's console
-            Unit stats = obj.GetComponent<Unit>();
-            stats.console = gameObject;
+        // Halt movement TO-DO make use of abilities/orders
+        UnitMovement movement = obj.GetComponent<UnitMovement>();
+        movement.path = null;
 
-            UnitManager.SelectUnit(gameObject.transform.parent.gameObject);
+        UnitManager.SelectUnit(gameObject.transform.parent.gameObject);
 
-            obj.transform.LookAt(screen.transform.position);
+        obj.transform.LookAt(screen.transform.position);
+        // Set unit's console
+        Marine marine = obj.GetComponent<Marine>();
+        marine.EnterConsole(gameObject);
 
-            gameObject.transform.parent.SendMessage("EnterConsole", obj);
-        }
+        gameObject.transform.parent.SendMessage("EnterConsole", obj);
     }
 
     public void DisconnectConsole() {
@@ -66,8 +72,10 @@ public class ConsoleControls : MonoBehaviour {
             lastOccupier = obj;
 
             // Clear unit's console
-            Unit stats = obj.GetComponent<Unit>();
-            stats.console = null;
+            Marine marine = obj.GetComponent<Marine>();
+			marine.LeaveConsole();
+
+			gameObject.transform.parent.SendMessage("DisconnectConsole");
         }
     }
 }

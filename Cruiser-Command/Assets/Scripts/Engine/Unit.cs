@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 // Represents a unit; health, other unit-stuff.
-public class Unit : MonoBehaviour
+public class UnitNotInUse : MonoBehaviour
 {
     // The health of this Unit.
     public double health { get; set; }

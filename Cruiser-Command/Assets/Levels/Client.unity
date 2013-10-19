@@ -1010,10 +1010,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 100002, guid: 4cf016b00519eb142acc06fef24ebf96, type: 2}
-  - {fileID: 100000, guid: e866e1fdefe49a648865c8ca2353885c, type: 2}
-  - {fileID: 100000, guid: 3e125cbce2965f9448c22af852fc1ee7, type: 2}
-  - {fileID: 100000, guid: 1aecee9d70b65434cbc6ab87c4082bb6, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 100000, guid: b8e045a515feb314691a8ba1d671dbe8, type: 2}
   - {fileID: 100004, guid: 46a4ffa2915ee7e4c826220e919021ef, type: 2}
   replaceIfExists: 0

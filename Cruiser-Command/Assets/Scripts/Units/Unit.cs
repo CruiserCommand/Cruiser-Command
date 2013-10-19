@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 
 // Represents a unit (e.g. ship, crew); health, other unit-stuff.
-public class UnitNotInUse : MonoBehaviour
+public class Unit : MonoBehaviour
 {
     // The health of this Unit.
     public double health { get; set; }
 
     // List of all abilities this unit has.
-    private List<Ability> abilities = new List<Ability>();
+    protected List<Ability> abilities = new List<Ability>();
 
     // List of all instances of Unit:s.
     private static List<GameObject> allUnits = new List<GameObject>();
