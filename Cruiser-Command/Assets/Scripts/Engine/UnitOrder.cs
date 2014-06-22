@@ -52,14 +52,11 @@ public class UnitOrder : uLink.MonoBehaviour {
 
         networkManager = GameObject.FindWithTag("NetworkManager");
 
-        if (networkManager != null) {
-            connectToServer = networkManager.GetComponent<InitiateClient>().connectToServer;
-        }
 	}
 
     // Issue an order to the unit
     public void IssueOrder(OrderStruct order) {
-        if (uLink.NetworkView.Get(gameObject).isOwner || !connectToServer) {
+        if (uLink.NetworkView.Get(gameObject).isOwner) {
             // If it's either of the non-motion orders, there shouldn't be a target
             if (order.order == Order.Stop || order.order == Order.HoldPosition) {
                 CurrentOrder = order.order;
@@ -75,11 +72,7 @@ public class UnitOrder : uLink.MonoBehaviour {
                 if (console != null) {
                     console.GetComponent<ConsoleControls>().DisconnectConsole();
                 }
-                if (connectToServer) {
-                    networkView.RPC("S_OrderMove", uLink.RPCMode.Server, TargetPosition);
-                } else {
-                    this.C_OrderMove(TargetPosition);
-                }
+                networkView.RPC("S_OrderMove", uLink.RPCMode.Server, TargetPosition);
             }
         }
     }
